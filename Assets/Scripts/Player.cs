@@ -5,10 +5,6 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rbody;
 
-    [Header("References")]
-    [SerializeField] private GameObject playerVisualBody;
-    [SerializeField] private GameObject playerVisualShadow;
-
     [Header("Horizontal Movement")]
     [SerializeField] private float forwardSpeedMax;
     [SerializeField] private float backwardSpeedMax;
@@ -28,8 +24,17 @@ public class Player : MonoBehaviour
     private bool isChangingTracks = false;
 
     [Header("Jump")]
-    [SerializeField] private float jumpTimeMin;
-    [SerializeField] private float jumpTimeMax;
+    [SerializeField] private float jumpHoldTime;
+    [SerializeField] private float weakGravity;
+    [SerializeField] private float strongGravity;
+    [SerializeField] private float jumpPushdownForce;
+    [SerializeField] private float initialJumpVal;
+    [SerializeField] private float initialVelocityY;
+
+
+    [Header("Jump Visual")]
+    [SerializeField] private GameObject playerVisualBody;
+    [SerializeField] private GameObject playerVisualShadow;
     [SerializeField] private float jumpDefaultOffsetY;
     [SerializeField] private float jumpPeakOffsetY;
     [SerializeField] private float jumpDefaultScale;
@@ -38,7 +43,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpPeakShadowScale;
     private float jumpVal = 0.0f;
     private bool isJumping = false;
-    private float jumpTimer = 0.0f;
 
     private float horizontalInput;
     private InputButton MoveUpButton;
@@ -63,7 +67,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleInput();
-        HandleJump();
         AnimateJump();
     }
 
@@ -90,12 +93,7 @@ public class Player : MonoBehaviour
         if (JumpButton.WasPressed() && CanJump())
         {
             JumpButton.ClearBuffer();
-            StartJump();
-        }
-
-        if (!JumpButton.IsPressed() && CanEndJump())
-        {
-            EndJump();
+            Jump();
         }
 
         if (SwordButton.WasPressed())
@@ -178,31 +176,37 @@ public class Player : MonoBehaviour
     }
 
     private bool CanJump() => isJumping == false;
-    private void StartJump()
+    private void Jump() => StartCoroutine(JumpCoroutine());
+    private IEnumerator JumpCoroutine()
     {
         isJumping = true;
-        jumpTimer = 0.0f;
-    }
 
-    private bool CanEndJump() => isJumping == true && jumpTimer > jumpTimeMin;
-    private void EndJump()
-    {
-        isJumping = false;
-    }
+        float jumpTimer = 0.0f;
+        bool jumpCanceled = false;
+        float currentGravity = weakGravity;
+        float velocityY = initialVelocityY;
+        jumpVal = initialJumpVal;
 
-    private void HandleJump()
-    {
-        float jumpSpeed = 1.0f / jumpTimeMin;
-        if (isJumping == true)
+        while (jumpVal > 0)
         {
+            velocityY += currentGravity * Time.deltaTime;
+            jumpVal += velocityY * Time.deltaTime;
             jumpTimer += Time.deltaTime;
-            jumpVal = Mathf.MoveTowards(jumpVal, 1.0f, jumpSpeed * Time.deltaTime);
-            if (jumpTimer > jumpTimeMax) EndJump();
+
+            bool jumpEndedEarly = JumpButton.WasReleased();
+            bool jumpTimeout = jumpTimer > jumpHoldTime;
+            if (!jumpCanceled && (jumpEndedEarly || jumpTimeout))
+            {
+                jumpCanceled = true;
+                velocityY -= jumpPushdownForce;
+                currentGravity = strongGravity;
+            }
+
+            yield return new WaitForEndOfFrame();
         }
-        else
-        {
-            jumpVal = Mathf.MoveTowards(jumpVal, 0.0f, jumpSpeed * Time.deltaTime);
-        }
+
+        jumpVal = 0.0f;
+        isJumping = false;
     }
 
     private void AnimateJump()

@@ -134,8 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8732b3d4c75a5eb4c9c41c76c4a517c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerVisualBody: {fileID: 809245205574390730}
-  playerVisualShadow: {fileID: 7854757745260300028}
   forwardSpeedMax: 14
   backwardSpeedMax: 12
   acceleration: 85
@@ -146,8 +144,14 @@ MonoBehaviour:
   trackIdxBottom: 4
   trackIdxMiddle: 2
   trackSwitchDuration: 0.15
-  jumpTimeMin: 0.15
-  jumpTimeMax: 0.25
+  jumpHoldTime: 0.4
+  weakGravity: -9
+  strongGravity: -24
+  jumpPushdownForce: 2
+  initialJumpVal: 0.4
+  initialVelocityY: 3.3
+  playerVisualBody: {fileID: 809245205574390730}
+  playerVisualShadow: {fileID: 7854757745260300028}
   jumpDefaultOffsetY: 0.15
   jumpPeakOffsetY: 1.65
   jumpDefaultScale: 1
