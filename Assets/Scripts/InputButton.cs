@@ -8,7 +8,7 @@ public class InputButton
     private bool valueThisFrame = false;
     private float bufferTime = 0.0f;
 
-    private float timeSinceLastPress = 9999.0f;
+    private float timeSinceLastPress = Mathf.Infinity;
 
     public InputButton(string buttonName, float bufferTime = 0.0f)
     {
@@ -26,6 +26,8 @@ public class InputButton
     }
 
     public bool WasPressed() => timeSinceLastPress <= bufferTime;
-
+    public bool IsPressed() => Input.GetButton(buttonName);
     public bool WasReleased() => valueLastFrame == true && valueThisFrame == false;
+
+    public void ClearBuffer() => timeSinceLastPress = Mathf.Infinity;
 }

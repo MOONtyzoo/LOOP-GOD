@@ -5,6 +5,10 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rbody;
 
+    [Header("References")]
+    [SerializeField] private GameObject playerVisualBody;
+    [SerializeField] private GameObject playerVisualShadow;
+
     [Header("Horizontal Movement")]
     [SerializeField] private float forwardSpeedMax;
     [SerializeField] private float backwardSpeedMax;
@@ -19,16 +23,29 @@ public class Player : MonoBehaviour
     [SerializeField] private int trackIdxMiddle;
     private int trackIdx;
 
-    [Header("Vertical Movement")]
+    [Header("Track Movement")]
     [SerializeField] private float trackSwitchDuration;
     private bool isChangingTracks = false;
+
+    [Header("Jump")]
+    [SerializeField] private float jumpTimeMin;
+    [SerializeField] private float jumpTimeMax;
+    [SerializeField] private float jumpDefaultOffsetY;
+    [SerializeField] private float jumpPeakOffsetY;
+    [SerializeField] private float jumpDefaultScale;
+    [SerializeField] private float jumpPeakScale;
+    [SerializeField] private float jumpDefaultShadowScale;
+    [SerializeField] private float jumpPeakShadowScale;
+    private float jumpVal = 0.0f;
+    private bool isJumping = false;
+    private float jumpTimer = 0.0f;
 
     private float horizontalInput;
     private InputButton MoveUpButton;
     private InputButton MoveDownButton;
+    private InputButton JumpButton;
     private InputButton SwordButton;
     private InputButton GunButton;
-    private InputButton JumpButton;
 
     private void Awake()
     {
@@ -36,8 +53,8 @@ public class Player : MonoBehaviour
 
         trackIdx = trackIdxMiddle;
 
-        MoveUpButton = new InputButton("MoveUp", 0.5f*trackSwitchDuration);
-        MoveDownButton = new InputButton("MoveDown", 0.5f*trackSwitchDuration);
+        MoveUpButton = new InputButton("MoveUp", 0.5f * trackSwitchDuration);
+        MoveDownButton = new InputButton("MoveDown", 0.5f * trackSwitchDuration);
         SwordButton = new InputButton("Sword", 0.0f);
         GunButton = new InputButton("Gun", 0.0f);
         JumpButton = new InputButton("Jump", 0.0f);
@@ -46,6 +63,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleInput();
+        HandleJump();
+        AnimateJump();
     }
 
     private void FixedUpdate()
@@ -68,6 +87,17 @@ public class Player : MonoBehaviour
             MoveDown();
         }
 
+        if (JumpButton.WasPressed() && CanJump())
+        {
+            JumpButton.ClearBuffer();
+            StartJump();
+        }
+
+        if (!JumpButton.IsPressed() && CanEndJump())
+        {
+            EndJump();
+        }
+
         if (SwordButton.WasPressed())
         {
             Debug.Log("Sword!");
@@ -76,11 +106,6 @@ public class Player : MonoBehaviour
         if (GunButton.WasPressed())
         {
             Debug.Log("Gun!");
-        }
-
-        if (JumpButton.WasPressed())
-        {
-            Debug.Log("Jump!");
         }
     }
 
@@ -118,14 +143,15 @@ public class Player : MonoBehaviour
 
 
     private bool CanMoveUp() => trackIdx != trackIdxTop && !isChangingTracks;
-    private void MoveUp() {
-        StartCoroutine(changeTrackCoroutine(transform.position.y + trackDistance, trackIdx-1));
+    private void MoveUp()
+    {
+        StartCoroutine(changeTrackCoroutine(transform.position.y + trackDistance, trackIdx - 1));
     }
 
     private bool CanMoveDown() => trackIdx != trackIdxBottom && !isChangingTracks;
     private void MoveDown()
     {
-        StartCoroutine(changeTrackCoroutine(transform.position.y - trackDistance, trackIdx+1));
+        StartCoroutine(changeTrackCoroutine(transform.position.y - trackDistance, trackIdx + 1));
     }
 
     private IEnumerator changeTrackCoroutine(float targetPosY, int targetTrackIdx)
@@ -150,4 +176,45 @@ public class Player : MonoBehaviour
         }
         isChangingTracks = false;
     }
+
+    private bool CanJump() => isJumping == false;
+    private void StartJump()
+    {
+        isJumping = true;
+        jumpTimer = 0.0f;
+    }
+
+    private bool CanEndJump() => isJumping == true && jumpTimer > jumpTimeMin;
+    private void EndJump()
+    {
+        isJumping = false;
+    }
+
+    private void HandleJump()
+    {
+        float jumpSpeed = 1.0f / jumpTimeMin;
+        if (isJumping == true)
+        {
+            jumpTimer += Time.deltaTime;
+            jumpVal = Mathf.MoveTowards(jumpVal, 1.0f, jumpSpeed * Time.deltaTime);
+            if (jumpTimer > jumpTimeMax) EndJump();
+        }
+        else
+        {
+            jumpVal = Mathf.MoveTowards(jumpVal, 0.0f, jumpSpeed * Time.deltaTime);
+        }
+    }
+
+    private void AnimateJump()
+    {
+        float jumpOffsetY = Mathf.Lerp(jumpDefaultOffsetY, jumpPeakOffsetY, jumpVal);
+        float jumpScale = Mathf.Lerp(jumpDefaultScale, jumpPeakScale, jumpVal);
+        float jumpShadowScale = Mathf.Lerp(jumpDefaultShadowScale, jumpPeakShadowScale, jumpVal);
+
+        playerVisualBody.transform.localPosition = new Vector2(playerVisualBody.transform.localPosition.x, jumpOffsetY);
+        playerVisualBody.transform.localScale = new Vector3(jumpScale, jumpScale, 1.0f);
+        playerVisualShadow.transform.localScale = new Vector3(jumpShadowScale, jumpShadowScale, 1.0f);
+    }
+
+    public float GetJumpVal() => jumpVal;
 }
