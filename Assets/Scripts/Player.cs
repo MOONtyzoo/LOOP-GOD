@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public event Action OnHit;
+
     private Rigidbody2D rbody;
     private Hitbox hitbox;
 
@@ -45,6 +48,11 @@ public class Player : MonoBehaviour
     private float jumpVal = 0.0f;
     private bool isJumping = false;
 
+    [Header("Sword")]
+    [SerializeField] private Hurtbox swordHurtbox;
+    [SerializeField] private float swordDuration;
+    private bool isUsingSword = false;
+
     private float horizontalInput;
     private InputButton MoveUpButton;
     private InputButton MoveDownButton;
@@ -56,6 +64,7 @@ public class Player : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody2D>();
         hitbox = GetComponentInChildren<Hitbox>();
+        swordHurtbox.Disable();
 
         trackIdx = trackIdxMiddle;
 
@@ -65,7 +74,7 @@ public class Player : MonoBehaviour
         GunButton = new InputButton("Gun", 0.0f);
         JumpButton = new InputButton("Jump", 0.0f);
 
-        hitbox.OnHit += OnHit;
+        hitbox.OnHit += Hitbox_OnHit;
     }
 
     private void Update()
@@ -79,10 +88,9 @@ public class Player : MonoBehaviour
         MoveHorizontal(horizontalInput);
     }
 
-    private void OnHit()
+    private void Hitbox_OnHit()
     {
-        Debug.Log("OUCH");
-        GameManager.Instance.DecreaseSpeed(5f);
+        OnHit?.Invoke();
     }
 
     private void HandleInput()
@@ -106,9 +114,9 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if (SwordButton.WasPressed())
+        if (SwordButton.WasPressed() && CanUseSword())
         {
-            Debug.Log("Sword!");
+            UseSword();
         }
 
         if (GunButton.WasPressed())
@@ -219,6 +227,24 @@ public class Player : MonoBehaviour
         jumpVal = 0.0f;
         isJumping = false;
         hitbox.Enable();
+    }
+
+    private bool CanUseSword() => !isUsingSword;
+    private void UseSword() { StartCoroutine(SwordCoroutine()); }
+    private IEnumerator SwordCoroutine()
+    {
+        isUsingSword = true;
+        swordHurtbox.Enable();
+
+        float timer = 0.0f;
+        while (timer < swordDuration)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        isUsingSword = false;
+        swordHurtbox.Disable();
     }
 
     private void AnimateJump()

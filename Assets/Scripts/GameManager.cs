@@ -1,8 +1,13 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public event Action OnEnemyKilled;
+
+    [SerializeField] private Player player;
 
     private float distance = 0.0f;
     private float speed = 4f;
@@ -18,6 +23,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             Debug.Log("Error attempting to instantiate singleton \"GameManager\", There is already one in the scene!");
         }
+
+        player.OnHit += Player_OnHit;
+    }
+
+    private void Player_OnHit()
+    {
+        DecreaseSpeed(5f);
     }
 
     private void Update()
@@ -37,6 +49,12 @@ public class GameManager : MonoBehaviour
 
     public float GetDistance() => distance;
     public float GetSpeed() => speed;
+
+    public void EnemyKilled(float speedGain)
+    {
+        IncreaseSpeed(speedGain);
+        OnEnemyKilled?.Invoke();
+    }
 
     public void IncreaseSpeed(float amount)
     {

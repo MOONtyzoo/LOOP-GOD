@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hurtbox
       objectReference: {fileID: 0}
+    - target: {fileID: 2732738833138498620, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
+      propertyPath: team
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4125693986326273513, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.65

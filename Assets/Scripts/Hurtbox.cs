@@ -11,6 +11,7 @@ public class Hurtbox : MonoBehaviour
     [SerializeField] private Color defaultColor;
 
     [Header("Behavior")]
+    [SerializeField] private Teams team;
     [SerializeField] private LayerMask hitboxLayerMask;
     [SerializeField] private bool disableOnHit = false;
 
@@ -64,7 +65,8 @@ public class Hurtbox : MonoBehaviour
             if (result.GetComponent<Hitbox>() != null)
             {
                 hitbox = result.GetComponent<Hitbox>();
-                return true;
+                bool isDifferentTeam = hitbox.GetTeam() != team;
+                if (isDifferentTeam) return true;
             }
         }
 
@@ -83,7 +85,7 @@ public class Hurtbox : MonoBehaviour
     {
         collider.enabled = false;
     }
-    
+
     private IEnumerator FlashCoroutine()
     {
         float timer = 0.0f;
@@ -100,4 +102,6 @@ public class Hurtbox : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+    
+    public Teams GetTeam() => team;
 }

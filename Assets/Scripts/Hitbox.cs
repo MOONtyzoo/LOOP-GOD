@@ -13,6 +13,10 @@ public class Hitbox : MonoBehaviour
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color disabledColor;
 
+    [Header("Behavior")]
+    [SerializeField] private Teams team;
+
+
     private SpriteRenderer spriteRenderer;
     private new Collider2D collider;
 
@@ -59,7 +63,7 @@ public class Hitbox : MonoBehaviour
         collider.enabled = false;
         spriteRenderer.color = disabledColor;
     }
-    
+
     private IEnumerator FlashCoroutine()
     {
         float timer = 0.0f;
@@ -76,4 +80,12 @@ public class Hitbox : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+
+    public Teams GetTeam() => team;
+}
+
+public enum Teams
+{
+    Player,
+    Enemy,
 }
