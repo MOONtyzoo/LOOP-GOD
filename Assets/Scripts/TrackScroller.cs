@@ -6,8 +6,10 @@ public class TrackScroller : MonoBehaviour
     [SerializeField] private List<GameObject> trackPrefabs;
     [SerializeField] private GameObject emptyTrackPrefab;
     [SerializeField] private float trackWidth;
+    [SerializeField] private float trackSpawnPosY = 0.0f;
+    [SerializeField] private float scrollMultiplier = 1.0f;
 
-    [SerializeField, Tooltip("The X position at which a track object will be destroyed and cause a new track object to be created at the front.")]
+    [SerializeField, Tooltip("The X localPosition at which a track object will be destroyed and cause a new track object to be created at the front.")]
     private float trackThresholdX;
     [SerializeField] private float initialTrackOffset;
 
@@ -19,16 +21,20 @@ public class TrackScroller : MonoBehaviour
 
     private void Awake()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         scrollDistance = 0.0f;
         trackOffset = initialTrackOffset;
-        leftTrack = SpawnEmptyTrack();
+        leftTrack = SpawnTrack(emptyTrackPrefab);
         rightTrack = SpawnRandomTrack();
         PositionTracks();
     }
 
     private void Update()
     {
-        scrollDistance = GameManager.Instance.GetDistance();
+        scrollDistance = scrollMultiplier * GameManager.Instance.GetDistance();
         if (IsTrackThesholdPassed())
         {
             SpawnNewTrack();
@@ -38,11 +44,11 @@ public class TrackScroller : MonoBehaviour
 
     private void PositionTracks()
     {
-        leftTrack.transform.position = new Vector2(trackOffset - scrollDistance, leftTrack.transform.position.y);
-        rightTrack.transform.position = new Vector2(leftTrack.transform.position.x + trackWidth, rightTrack.transform.position.y);
+        leftTrack.transform.localPosition = new Vector2(trackOffset - scrollDistance, leftTrack.transform.localPosition.y);
+        rightTrack.transform.localPosition = new Vector2(leftTrack.transform.localPosition.x + trackWidth, rightTrack.transform.localPosition.y);
     }
 
-    private bool IsTrackThesholdPassed() => leftTrack.transform.position.x < trackThresholdX;
+    private bool IsTrackThesholdPassed() => leftTrack.transform.localPosition.x < trackThresholdX;
 
     private void SpawnNewTrack()
     {
@@ -52,14 +58,16 @@ public class TrackScroller : MonoBehaviour
         trackOffset += trackWidth;
     }
 
-    private GameObject SpawnEmptyTrack()
-    {
-        return Instantiate(emptyTrackPrefab, transform);
-    }
-
     private GameObject SpawnRandomTrack()
     {
         GameObject randomTrackPrefab = trackPrefabs[Random.Range(0, trackPrefabs.Count)];
-        return Instantiate(randomTrackPrefab, transform);
+        return SpawnTrack(randomTrackPrefab);
+    }
+
+    private GameObject SpawnTrack(GameObject trackPrefab)
+    {
+        GameObject newTrack = Instantiate(trackPrefab, transform);
+        newTrack.transform.localPosition = new Vector2(newTrack.transform.localPosition.x, trackSpawnPosY);
+        return newTrack;
     }
 }
