@@ -4,6 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rbody;
+    private Hitbox hitbox;
 
     [Header("Horizontal Movement")]
     [SerializeField] private float forwardSpeedMax;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
+        hitbox = GetComponentInChildren<Hitbox>();
 
         trackIdx = trackIdxMiddle;
 
@@ -62,6 +64,8 @@ public class Player : MonoBehaviour
         SwordButton = new InputButton("Sword", 0.0f);
         GunButton = new InputButton("Gun", 0.0f);
         JumpButton = new InputButton("Jump", 0.0f);
+
+        hitbox.OnHit += OnHit;
     }
 
     private void Update()
@@ -73,6 +77,11 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         MoveHorizontal(horizontalInput);
+    }
+
+    private void OnHit()
+    {
+        Debug.Log("OUCH");
     }
 
     private void HandleInput()
@@ -180,6 +189,7 @@ public class Player : MonoBehaviour
     private IEnumerator JumpCoroutine()
     {
         isJumping = true;
+        hitbox.Disable();
 
         float jumpTimer = 0.0f;
         bool jumpCanceled = false;
@@ -207,6 +217,7 @@ public class Player : MonoBehaviour
 
         jumpVal = 0.0f;
         isJumping = false;
+        hitbox.Enable();
     }
 
     private void AnimateJump()
