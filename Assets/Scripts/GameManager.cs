@@ -37,4 +37,19 @@ public class GameManager : MonoBehaviour
 
     public float GetDistance() => distance;
     public float GetSpeed() => speed;
+
+    public void IncreaseSpeed(float amount)
+    {
+        SetSpeed(speed + amount);
+    }
+
+    public void DecreaseSpeed(float amount)
+    {
+        SetSpeed(speed - amount);
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = Mathf.Clamp(newSpeed, 0.0f, Mathf.Infinity);
+    }
 }

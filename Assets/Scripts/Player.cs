@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     private void OnHit()
     {
         Debug.Log("OUCH");
+        GameManager.Instance.DecreaseSpeed(5f);
     }
 
     private void HandleInput()
