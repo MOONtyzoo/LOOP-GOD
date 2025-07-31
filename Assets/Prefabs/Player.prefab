@@ -97,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2156757654332133177}
   - component: {fileID: 7993465245297730794}
+  - component: {fileID: 1834390216108890351}
   - component: {fileID: 8780509204596019484}
   - component: {fileID: 306602737579816822}
   m_Layer: 0
@@ -136,16 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8732b3d4c75a5eb4c9c41c76c4a517c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeedMax: 14
-  backwardSpeedMax: 12
-  acceleration: 85
-  turnFactor: 3
-  trackDistance: 2
-  numTracks: 5
-  trackIdxTop: 0
-  trackIdxBottom: 4
-  trackIdxMiddle: 2
-  trackSwitchDuration: 0.15
   jumpHoldTime: 0.4
   weakGravity: -9
   strongGravity: -24
@@ -162,6 +153,23 @@ MonoBehaviour:
   jumpPeakShadowScale: 0.9
   swordHurtbox: {fileID: 5872345055514516604}
   swordDuration: 0.2
+--- !u!114 &1834390216108890351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2693932905033938714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28428926db9c49041b28bf8af70bb705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardSpeedMax: 14
+  backwardSpeedMax: 12
+  acceleration: 85
+  turnFactor: 3
+  trackSwitchDuration: 0.15
 --- !u!50 &8780509204596019484
 Rigidbody2D:
   serializedVersion: 5
