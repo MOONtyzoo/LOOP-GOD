@@ -23,12 +23,24 @@ public class Player : MonoBehaviour
     [SerializeField] private float trackSwitchDuration;
     private bool isChangingTracks = false;
 
+    private float horizontalInput;
+    private InputButton MoveUpButton;
+    private InputButton MoveDownButton;
+    private InputButton SwordButton;
+    private InputButton GunButton;
+    private InputButton JumpButton;
 
     private void Awake()
     {
+        rbody = GetComponent<Rigidbody2D>();
+
         trackIdx = trackIdxMiddle;
 
-        rbody = GetComponent<Rigidbody2D>();
+        MoveUpButton = new InputButton("MoveUp", 0.5f*trackSwitchDuration);
+        MoveDownButton = new InputButton("MoveDown", 0.5f*trackSwitchDuration);
+        SwordButton = new InputButton("Sword", 0.0f);
+        GunButton = new InputButton("Gun", 0.0f);
+        JumpButton = new InputButton("Jump", 0.0f);
     }
 
     private void Update()
@@ -36,35 +48,49 @@ public class Player : MonoBehaviour
         HandleInput();
     }
 
+    private void FixedUpdate()
+    {
+        MoveHorizontal(horizontalInput);
+    }
+
     private void HandleInput()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        MoveHorizontal(horizontalInput);
+        horizontalInput = Input.GetAxis("Horizontal");
+        UpdateInputButtons();
 
-        if (Input.GetButtonDown("MoveUp") && CanMoveUp())
+        if (MoveUpButton.WasPressed() && CanMoveUp())
         {
             MoveUp();
         }
 
-        if (Input.GetButtonDown("MoveDown") && CanMoveDown())
+        if (MoveDownButton.WasPressed() && CanMoveDown())
         {
             MoveDown();
         }
 
-        if (Input.GetButtonDown("Sword"))
+        if (SwordButton.WasPressed())
         {
             Debug.Log("Sword!");
         }
 
-        if (Input.GetButtonDown("Gun"))
+        if (GunButton.WasPressed())
         {
             Debug.Log("Gun!");
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (JumpButton.WasPressed())
         {
             Debug.Log("Jump!");
         }
+    }
+
+    private void UpdateInputButtons()
+    {
+        MoveUpButton.Update();
+        MoveDownButton.Update();
+        SwordButton.Update();
+        GunButton.Update();
+        JumpButton.Update();
     }
 
     private void MoveHorizontal(float inputDirection)
@@ -84,7 +110,7 @@ public class Player : MonoBehaviour
         }
 
         float maxDelta = acceleration * Time.deltaTime;
-        bool shouldApplyTurnFactor = Mathf.Sign(inputDirection) != Mathf.Sign(rbody.linearVelocityX);
+        bool shouldApplyTurnFactor = inputDirection == 0.0f || Mathf.Sign(inputDirection) != Mathf.Sign(rbody.linearVelocityX);
         if (shouldApplyTurnFactor) maxDelta *= turnFactor;
 
         rbody.linearVelocityX = Mathf.MoveTowards(rbody.linearVelocityX, targetVelocityX, maxDelta);
