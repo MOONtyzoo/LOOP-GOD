@@ -4,6 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private float followSpeed;
+    [SerializeField] private float followMultiplier = 1f;
 
     private void Update()
     {
@@ -12,7 +13,8 @@ public class CameraFollow : MonoBehaviour
 
     private void SmoothFollowPlayerY()
     {
-        float newPosY = Mathf.Lerp(transform.position.y, player.transform.position.y, followSpeed * Time.deltaTime);
+        float targetPosY = followMultiplier * player.transform.position.y;
+        float newPosY = Mathf.Lerp(transform.position.y, targetPosY, followSpeed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, newPosY, transform.position.z);
     }
 }
