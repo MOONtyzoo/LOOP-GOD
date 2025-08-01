@@ -12,6 +12,7 @@ public class Mage : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private float speedGain;
+    [SerializeField] private int maxHealth;
     [SerializeField] private float lightningChargeDuration = 10f;
     [SerializeField] private float targetPosMinX;
     [SerializeField] private float targetPosMaxX;
@@ -28,10 +29,12 @@ public class Mage : MonoBehaviour
 
     private float randomNum;
     private float targetPosX;
+    private int health;
 
     private void Awake()
     {
         randomNum = Random.Range(0.0f, 99999.9f);
+        health = maxHealth;
 
         hitbox = GetComponentInChildren<Hitbox>();
         hitbox.OnHit += OnHit;
@@ -51,6 +54,13 @@ public class Mage : MonoBehaviour
     }
 
     private void OnHit()
+    {
+        health -= 1;
+        trackBody.MoveToAdjacentTrack();
+        if (health <= 0) Die();
+    }
+
+    private void Die()
     {
         GameManager.Instance.EnemyKilled(speedGain);
         Destroy(gameObject);

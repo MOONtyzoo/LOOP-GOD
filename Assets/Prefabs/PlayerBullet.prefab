@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  destroyPosX: 25
 --- !u!1 &5395361063801497221
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,9 +284,13 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2732738833138498620, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
+      propertyPath: disableOnHit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4125693986326273513, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4125693986326273513, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
       propertyPath: m_LocalScale.y
@@ -293,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4125693986326273513, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4125693986326273513, guid: 54e7e70db52303d4e9188430c8808b61, type: 3}
       propertyPath: m_LocalPosition.y

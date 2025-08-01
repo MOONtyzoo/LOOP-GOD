@@ -80,7 +80,7 @@ public class Hurtbox : MonoBehaviour
 
     public void DamageHitbox(Hitbox hitbox)
     {
-        hitbox.Hit();
+        hitbox.Hit(this);
         OnHit?.Invoke();
         if (debug)
         {

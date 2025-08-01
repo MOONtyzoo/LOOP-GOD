@@ -29,10 +29,21 @@ public class TrackBody : MonoBehaviour
         rbody = GetComponentInParent<Rigidbody2D>();
     }
 
-    public void MoveToTrack(int targetTrackIdx)
+    public void MoveToRandomTrack() => MoveToTrack(Random.Range(TRACK_IDX_TOP, TRACK_IDX_BOTTOM + 1));
+    public void MoveToAdjacentTrack()
     {
-        StartCoroutine(changeTrackCoroutine(targetTrackIdx));
+        if (!CanMoveDown()) MoveUp();
+        if (!CanMoveUp()) MoveDown();
+        if (Random.Range(0, 2) == 0)
+        {
+            MoveUp();
+        } else
+        {
+            MoveDown();
+        }
     }
+    public void MoveToTrack(int targetTrackIdx) => StartCoroutine(changeTrackCoroutine(targetTrackIdx));
+
     public bool CanMoveUp() => trackIdx != TRACK_IDX_TOP && !isChangingTracks;
     public void MoveUp()
     {
@@ -52,6 +63,7 @@ public class TrackBody : MonoBehaviour
         float timerNormalized;
 
         float startPosY = transform.position.y;
+        targetTrackIdx = Mathf.Clamp(targetTrackIdx, TRACK_IDX_TOP, TRACK_IDX_BOTTOM);
         float targetPosY = GetTrackPosY(targetTrackIdx);
 
         isChangingTracks = true;

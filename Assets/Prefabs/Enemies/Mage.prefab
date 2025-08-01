@@ -315,6 +315,7 @@ MonoBehaviour:
   - {fileID: 8199552887788213373}
   - {fileID: 5785455014990385355}
   speedGain: 5
+  maxHealth: 2
   lightningChargeDuration: 10
   targetPosMinX: 6.5
   targetPosMaxX: 12.5

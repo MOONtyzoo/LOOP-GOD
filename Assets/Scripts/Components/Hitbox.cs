@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Hitbox : MonoBehaviour
@@ -16,7 +17,6 @@ public class Hitbox : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private Teams team;
     [SerializeField] private ImmunityLevels immunityLevel = ImmunityLevels.Ground;
-
 
     private SpriteRenderer spriteRenderer;
     private new Collider2D collider;
@@ -47,7 +47,7 @@ public class Hitbox : MonoBehaviour
         }
     }
 
-    public void Hit()
+    public void Hit(Hurtbox hurtbox)
     {
         if (debug)
         {
