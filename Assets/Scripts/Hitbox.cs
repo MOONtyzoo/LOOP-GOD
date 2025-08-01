@@ -15,6 +15,7 @@ public class Hitbox : MonoBehaviour
 
     [Header("Behavior")]
     [SerializeField] private Teams team;
+    [SerializeField] private ImmunityLevels immunityLevel = ImmunityLevels.Ground;
 
 
     private SpriteRenderer spriteRenderer;
@@ -25,8 +26,13 @@ public class Hitbox : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = defaultColor;
         collider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        spriteRenderer.color = defaultColor;
+        spriteRenderer.enabled = debug;
     }
 
     private void Update()
@@ -82,10 +88,19 @@ public class Hitbox : MonoBehaviour
     }
 
     public Teams GetTeam() => team;
+    public ImmunityLevels GetImmunityLevel() => immunityLevel;
+    public void SetImmunityLevel(ImmunityLevels newImmunityLevel) => immunityLevel = newImmunityLevel;
 }
 
 public enum Teams
 {
     Player,
     Enemy,
+}
+
+public enum ImmunityLevels
+{
+    Ground,
+    Air,
+    FullImmunity
 }

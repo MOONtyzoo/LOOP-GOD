@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
     private IEnumerator JumpCoroutine()
     {
         isJumping = true;
-        hitbox.Disable();
+        hitbox.SetImmunityLevel(ImmunityLevels.Air);
 
         float jumpTimer = 0.0f;
         bool jumpCanceled = false;
@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
 
         jumpVal = 0.0f;
         isJumping = false;
-        hitbox.Enable();
+        hitbox.SetImmunityLevel(ImmunityLevels.Ground);
     }
 
     private bool CanUseSword() => !isUsingSword;

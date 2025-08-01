@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 944888211}
+  lightningPrefab: {fileID: 6738691967774311281, guid: d16e6c78606adfa45ba74b71ef6675c5, type: 3}
 --- !u!4 &197006280
 Transform:
   m_ObjectHideFlags: 0

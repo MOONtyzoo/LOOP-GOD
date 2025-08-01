@@ -13,6 +13,7 @@ public class Hurtbox : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private Teams team;
     [SerializeField] private LayerMask hitboxLayerMask;
+    [SerializeField] private ImmunityLevels immunityBreak;
     [SerializeField] private bool disableOnHit = false;
 
     private SpriteRenderer spriteRenderer;
@@ -23,8 +24,13 @@ public class Hurtbox : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = defaultColor;
         collider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        spriteRenderer.color = defaultColor;
+        spriteRenderer.enabled = debug && IsEnabled();
     }
 
     private void Update()
@@ -66,7 +72,8 @@ public class Hurtbox : MonoBehaviour
             {
                 hitbox = result.GetComponent<Hitbox>();
                 bool isDifferentTeam = hitbox.GetTeam() != team;
-                if (isDifferentTeam) return true;
+                bool canBreakImmunity = immunityBreak >= hitbox.GetImmunityLevel();
+                if (isDifferentTeam && canBreakImmunity) return true;
             }
         }
 

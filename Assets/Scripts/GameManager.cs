@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public event Action OnEnemyKilled;
 
     [SerializeField] private Player player;
+    [SerializeField] private Lightning lightningPrefab;
 
     private float distance = 0.0f;
     private float speed = 4f;
@@ -38,12 +39,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            speed += 1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            speed -= 1f;
+            Lightning lightning = Instantiate(lightningPrefab);
         }
     }
 
@@ -70,4 +66,6 @@ public class GameManager : MonoBehaviour
     {
         speed = Mathf.Clamp(newSpeed, 0.0f, Mathf.Infinity);
     }
+
+    public Vector2 GetPlayerPosition() => player.transform.position;
 }
