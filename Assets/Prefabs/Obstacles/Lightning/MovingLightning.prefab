@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 6738691967774311281}
   - component: {fileID: 3488013886151790305}
   m_Layer: 0
-  m_Name: StaticLightning
+  m_Name: MovingLightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,8 +439,8 @@ MonoBehaviour:
   followDuration: 1.1
   warningDuration: 1
   strikeDuration: 0.2
-  followAccel: 0
-  followSpeedMax: 0
+  followAccel: 2
+  followSpeedMax: 5
   fadeInDuration: 0.3
   transparentColor: {r: 1, g: 1, b: 1, a: 0}
   warningFlashTime: 0.15

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Lightning : MonoBehaviour
     [SerializeField] private SpriteRenderer lightningSprite;
     [SerializeField] private TextMeshPro warningLabel;
     [SerializeField] private Hurtbox hurtbox;
+    private Mage caster;
 
     [Header("Stats")]
     [SerializeField] private float followDuration;
@@ -20,32 +22,18 @@ public class Lightning : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private float fadeInDuration;
     [SerializeField] private Color transparentColor;
-    [SerializeField] private float gradientColorFrequency;
-    [SerializeField] private Color gradientColor1;
-    [SerializeField] private Color gradientColor2;
     [SerializeField] private float warningFlashTime;
     [SerializeField] private Color warningFlashColor;
-    [SerializeField] private Color strikeColor;
 
-    private float randomNum;
-
-    private States currentState;
-    private enum States
-    {
-        Follow,
-        Warning,
-        Strike
-    }
+    private Color baseColor;
 
     private void Start()
     {
-        randomNum = Random.Range(0.0f, 99999.9f);
         SetColor(transparentColor);
+        hurtbox.Disable();
 
         SetPositionToPlayer();
         StartCoroutine(FollowCoroutine());
-
-        hurtbox.Disable();
     }
 
     private IEnumerator FollowCoroutine()
@@ -57,7 +45,7 @@ public class Lightning : MonoBehaviour
         {
             timer += Time.deltaTime;
             fadeTimerNormalized = Mathf.Clamp(timer / fadeInDuration, 0.0f, 1.0f);
-            SetColor(Color.Lerp(transparentColor, GetGradientColor(), fadeTimerNormalized));
+            SetColor(Color.Lerp(transparentColor, baseColor, fadeTimerNormalized));
             FollowPlayer();
             yield return new WaitForEndOfFrame();
         }
@@ -79,12 +67,12 @@ public class Lightning : MonoBehaviour
             {
                 warningFlashIdx = (warningFlashIdx + 1) % 2;
                 warningFlashTimer -= warningFlashTime * 0.5f;
-                
+
             }
 
             if (warningFlashIdx == 0)
             {
-                SetColor(GetGradientColor());
+                SetColor(baseColor);
             }
             else
             {
@@ -103,13 +91,13 @@ public class Lightning : MonoBehaviour
 
         hurtbox.Enable();
         lightningSprite.enabled = true;
-        SetColor(strikeColor);
+        SetColor(baseColor);
 
         while (timer < strikeDuration)
         {
             timer += Time.deltaTime;
             timerNormalized = Mathf.Clamp(timer / strikeDuration - 0.2f, 0.0f, 1.0f);
-            SetColor(Color.Lerp(GetGradientColor(), transparentColor, timerNormalized));
+            SetColor(Color.Lerp(baseColor, transparentColor, timerNormalized));
             yield return new WaitForEndOfFrame();
         }
 
@@ -135,11 +123,7 @@ public class Lightning : MonoBehaviour
         transform.position = new Vector2(newPosX, transform.position.y);
     }
 
-    private Color GetGradientColor()
-    {
-        float lerpVal = 0.5f*Mathf.Sin(Time.time*gradientColorFrequency + randomNum) + 0.5f;
-        return Color.Lerp(gradientColor1, gradientColor2, lerpVal);
-    }
+    public void SetBaseColor(Color newBaseColor) => baseColor = newBaseColor;
 
     private void SetColor(Color newColor)
     {
@@ -147,4 +131,6 @@ public class Lightning : MonoBehaviour
         lightningSprite.color = newColor;
         warningLabel.color = newColor;
     }
+
+    public float GetTimeToStrike() => followDuration + warningDuration;
 }
