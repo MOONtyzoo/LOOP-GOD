@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hurtbox : MonoBehaviour
 {
+    public event Action OnHit;
+
     [Header("Debug")]
     [SerializeField] private bool debug = false;
     [SerializeField] private float flashDuration = 0.5f;
@@ -47,13 +50,7 @@ public class Hurtbox : MonoBehaviour
     {
         if (TryGetHitbox(out Hitbox hitbox))
         {
-            hitbox.Hit();
-            if (debug)
-            {
-                if (flashCoroutine != null) StopCoroutine(flashCoroutine);
-                StartCoroutine(FlashCoroutine());
-            }
-            if (disableOnHit) Disable();
+            DamageHitbox(hitbox);   
         }
     }
 
@@ -79,6 +76,18 @@ public class Hurtbox : MonoBehaviour
 
         hitbox = null;
         return false;
+    }
+
+    public void DamageHitbox(Hitbox hitbox)
+    {
+        hitbox.Hit();
+        OnHit?.Invoke();
+        if (debug)
+        {
+            if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+            StartCoroutine(FlashCoroutine());
+        }
+        if (disableOnHit) Disable();
     }
 
     public bool IsEnabled() => collider.enabled;

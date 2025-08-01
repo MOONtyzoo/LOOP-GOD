@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private TrackBody trackBody;
     private HeightVisual heightVisual;
     private Hitbox hitbox;
+    private PlayerGun gun;
 
     [Header("Jump")]
     [SerializeField] private float jumpHoldTime;
@@ -36,6 +37,8 @@ public class Player : MonoBehaviour
         trackBody = GetComponentInChildren<TrackBody>();
         heightVisual = GetComponentInChildren<HeightVisual>();
         hitbox = GetComponentInChildren<Hitbox>();
+        gun = GetComponentInChildren<PlayerGun>();
+        gun.SetAmmo(3);
         swordHurtbox.Disable();
 
         trackBody.SetTrack(2);
@@ -46,6 +49,7 @@ public class Player : MonoBehaviour
         GunButton = new InputButton("Gun", 0.0f);
         JumpButton = new InputButton("Jump", 0.0f);
 
+        swordHurtbox.OnHit += SwordHurtbox_OnHit;
         hitbox.OnHit += Hitbox_OnHit;
     }
 
@@ -62,6 +66,11 @@ public class Player : MonoBehaviour
     private void Hitbox_OnHit()
     {
         OnHit?.Invoke();
+    }
+
+    private void SwordHurtbox_OnHit()
+    {
+        gun.Reload();
     }
 
     private void HandleInput()
@@ -90,9 +99,9 @@ public class Player : MonoBehaviour
             UseSword();
         }
 
-        if (GunButton.WasPressed())
+        if (GunButton.WasPressed() && gun.HasAmmo())
         {
-            Debug.Log("Gun!");
+            gun.Shoot();
         }
     }
 
@@ -159,6 +168,4 @@ public class Player : MonoBehaviour
         isUsingSword = false;
         swordHurtbox.Disable();
     }
-
-    public float GetJumpVal() => heightVisual.GetHeight();
 }
