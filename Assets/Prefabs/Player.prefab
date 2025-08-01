@@ -143,14 +143,6 @@ MonoBehaviour:
   jumpPushdownForce: 2
   initialJumpVal: 0.4
   initialVelocityY: 3.3
-  playerVisualBody: {fileID: 809245205574390730}
-  playerVisualShadow: {fileID: 7854757745260300028}
-  jumpDefaultOffsetY: 0.15
-  jumpPeakOffsetY: 1.65
-  jumpDefaultScale: 1
-  jumpPeakScale: 1.17
-  jumpDefaultShadowScale: 1
-  jumpPeakShadowScale: 0.9
   swordHurtbox: {fileID: 5872345055514516604}
   swordDuration: 0.2
 --- !u!114 &1834390216108890351
@@ -253,6 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3624818153320116365}
   - component: {fileID: 684552231006774677}
+  - component: {fileID: 1373407437502862108}
   m_Layer: 0
   m_Name: PlayerVisual
   m_TagString: Untagged
@@ -289,6 +282,26 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!114 &1373407437502862108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773408296907830084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76108d527151ae0408dc6000faa0454f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisualBody: {fileID: 809245205574390730}
+  VisualShadow: {fileID: 7854757745260300028}
+  defaultOffsetY: 0.15
+  peakOffsetY: 1.65
+  defaultScale: 1
+  peakScale: 1.17
+  defaultShadowScale: 1
+  peakShadowScale: 0.9
 --- !u!1 &7227539243495474131
 GameObject:
   m_ObjectHideFlags: 0

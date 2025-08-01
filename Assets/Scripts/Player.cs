@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public event Action OnHit;
 
     private TrackBody trackBody;
+    private HeightVisual heightVisual;
     private Hitbox hitbox;
 
     [Header("Jump")]
@@ -16,18 +17,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float jumpPushdownForce;
     [SerializeField] private float initialJumpVal;
     [SerializeField] private float initialVelocityY;
-
-
-    [Header("Jump Visual")]
-    [SerializeField] private GameObject playerVisualBody;
-    [SerializeField] private GameObject playerVisualShadow;
-    [SerializeField] private float jumpDefaultOffsetY;
-    [SerializeField] private float jumpPeakOffsetY;
-    [SerializeField] private float jumpDefaultScale;
-    [SerializeField] private float jumpPeakScale;
-    [SerializeField] private float jumpDefaultShadowScale;
-    [SerializeField] private float jumpPeakShadowScale;
-    private float jumpVal = 0.0f;
     private bool isJumping = false;
 
     [Header("Sword")]
@@ -45,6 +34,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         trackBody = GetComponentInChildren<TrackBody>();
+        heightVisual = GetComponentInChildren<HeightVisual>();
         hitbox = GetComponentInChildren<Hitbox>();
         swordHurtbox.Disable();
 
@@ -62,7 +52,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleInput();
-        AnimateJump();
     }
 
     private void FixedUpdate()
@@ -127,12 +116,13 @@ public class Player : MonoBehaviour
         bool jumpCanceled = false;
         float currentGravity = weakGravity;
         float velocityY = initialVelocityY;
-        jumpVal = initialJumpVal;
+        float jumpVal = initialJumpVal;
 
         while (jumpVal > 0)
         {
             velocityY += currentGravity * Time.deltaTime;
             jumpVal += velocityY * Time.deltaTime;
+            heightVisual.SetHeight(jumpVal);
             jumpTimer += Time.deltaTime;
 
             bool jumpEndedEarly = JumpButton.WasReleased();
@@ -147,7 +137,7 @@ public class Player : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        jumpVal = 0.0f;
+        heightVisual.SetHeight(0.0f);
         isJumping = false;
         hitbox.SetImmunityLevel(ImmunityLevels.Ground);
     }
@@ -170,16 +160,5 @@ public class Player : MonoBehaviour
         swordHurtbox.Disable();
     }
 
-    private void AnimateJump()
-    {
-        float jumpOffsetY = Mathf.Lerp(jumpDefaultOffsetY, jumpPeakOffsetY, jumpVal);
-        float jumpScale = Mathf.Lerp(jumpDefaultScale, jumpPeakScale, jumpVal);
-        float jumpShadowScale = Mathf.Lerp(jumpDefaultShadowScale, jumpPeakShadowScale, jumpVal);
-
-        playerVisualBody.transform.localPosition = new Vector2(playerVisualBody.transform.localPosition.x, jumpOffsetY);
-        playerVisualBody.transform.localScale = new Vector3(jumpScale, jumpScale, 1.0f);
-        playerVisualShadow.transform.localScale = new Vector3(jumpShadowScale, jumpShadowScale, 1.0f);
-    }
-
-    public float GetJumpVal() => jumpVal;
+    public float GetJumpVal() => heightVisual.GetHeight();
 }

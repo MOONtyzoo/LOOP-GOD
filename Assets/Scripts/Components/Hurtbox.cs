@@ -13,7 +13,7 @@ public class Hurtbox : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private Teams team;
     [SerializeField] private LayerMask hitboxLayerMask;
-    [SerializeField] private ImmunityLevels immunityBreak;
+    [SerializeField] private ImmunityLevels immunityBreak = ImmunityLevels.Ground;
     [SerializeField] private bool disableOnHit = false;
 
     private SpriteRenderer spriteRenderer;
