@@ -273,7 +273,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 944888211}
-  lightningPrefab: {fileID: 6738691967774311281, guid: d16e6c78606adfa45ba74b71ef6675c5, type: 3}
+  naturalRunSpeed: 14
+  equilibriumSpeed: 18.5
+  terminalSpeed: 50
+  runAcceleration: 3
+  accelerationStunDuration: 1
+  equilibirumDecayRate: 0.11
+  equilibriumDecayExponent: 1.2
+  equilibriumDecayStunDuration: 0.5
+  hitReductionMin: 6
+  hitReductionMultiplier: 0.09
 --- !u!4 &197006280
 Transform:
   m_ObjectHideFlags: 0
@@ -651,7 +660,7 @@ MonoBehaviour:
   player: {fileID: 944888211}
   followSpeed: 0.75
   followMultiplier: 0.5
-  tiltStrength: 2
+  tiltStrength: 0.5
   tiltSmoothSpeed: 2
 --- !u!1 &696068888
 GameObject:
@@ -965,7 +974,7 @@ MonoBehaviour:
   emptyTrackPrefab: {fileID: 4669630636152872559, guid: 1bf92b379bb3a964d9a29d58c2c7b362, type: 3}
   trackWidth: 100
   trackSpawnPosY: -5.44
-  scrollMultiplier: 0.33
+  scrollMultiplier: 0.15
   trackThresholdX: -116
   initialTrackOffset: -16
 --- !u!114 &944888211 stripped

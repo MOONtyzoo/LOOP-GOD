@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,11 +8,41 @@ public class GameManager : MonoBehaviour
 
     public event Action OnEnemyKilled;
 
+    [Header("References")]
     [SerializeField] private Player player;
-    [SerializeField] private Lightning lightningPrefab;
+
+    [Header("Speed Adjustments")]
+    [SerializeField, Tooltip("If lower than this speed, naturally accelerate to it.")]
+    private float naturalRunSpeed;
+    [SerializeField, Tooltip("If higher than this speed, naturally decelerate to it.")]
+    private float equilibriumSpeed;
+    [SerializeField, Tooltip("Can not go faster than this speed no matter what")]
+    private float terminalSpeed;
+
+    [Space]
+    [SerializeField, Tooltip("Acceleration to natural speed from a lower speed")]
+    private float runAcceleration;
+    [SerializeField, Tooltip("Acceleration is paused for this long after taking a hit")]
+    private float accelerationStunDuration;
+
+    [Space]
+    [SerializeField, Tooltip("Decay to equilibrium speed from a higher speed")]
+    private float equilibirumDecayRate;
+    [SerializeField, Tooltip("Exponent by which deceleration is proprtional to speed. 0 means that all speeds have the same deceleration, while 1 means that deceleration is proprtional to speed.")]
+    private float equilibriumDecayExponent;
+    [SerializeField, Tooltip("Decay is paused for this long after gaining speed from an enemy")]
+    private float equilibriumDecayStunDuration;
+
+    [Space]
+    [SerializeField, Tooltip("Minimum guarunteed speed loss on taking damage.")]
+    private float hitReductionMin;
+    [SerializeField, Tooltip("Multiplier for how much speed is lost on hit proprtional to speed above natural run speed.")]
+    private float hitReductionMultiplier;
 
     private float distance = 0.0f;
-    private float speed = 4f;
+    private float speed = 0.0f;
+    private bool isRunAccelerationStunned = false;
+    private bool isEquilibriumDecayStunned = false;
 
     private void Awake()
     {
@@ -30,17 +61,58 @@ public class GameManager : MonoBehaviour
 
     private void Player_OnHit()
     {
-        DecreaseSpeed(5f);
+        StartCoroutine(StunAccelerationCoroutine());
+
+        float reductionFactor = Mathf.Max(1f, hitReductionMultiplier * (speed - naturalRunSpeed));
+        DecreaseSpeed(hitReductionMin*reductionFactor);
     }
 
     private void Update()
     {
+        UpdateSpeed();
         distance += speed * Time.deltaTime;
+    }
 
-        if (Input.GetKeyDown(KeyCode.E))
+    private void UpdateSpeed()
+    {
+        if (speed < naturalRunSpeed && !isRunAccelerationStunned)
         {
-            Lightning lightning = Instantiate(lightningPrefab);
+            speed += runAcceleration * Time.deltaTime;
         }
+
+        if (speed > equilibriumSpeed && !isEquilibriumDecayStunned)
+        {
+            float decelerationScaling = Mathf.Pow(speed-equilibriumSpeed, equilibriumDecayExponent);
+            speed -= equilibirumDecayRate * decelerationScaling * Time.deltaTime;
+        }
+    }
+
+    private IEnumerator StunAccelerationCoroutine()
+    {
+        isRunAccelerationStunned = true;
+
+        float timer = 0.0f;
+        while (timer < accelerationStunDuration)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        isRunAccelerationStunned = false;
+    }
+
+    private IEnumerator StunEquilibriumDecayCoroutine()
+    {
+        isEquilibriumDecayStunned = true;
+
+        float timer = 0.0f;
+        while (timer < equilibriumDecayStunDuration)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        isEquilibriumDecayStunned = false;
     }
 
     public float GetDistance() => distance;
@@ -49,6 +121,7 @@ public class GameManager : MonoBehaviour
     public void EnemyKilled(float speedGain)
     {
         IncreaseSpeed(speedGain);
+        StartCoroutine(StunEquilibriumDecayCoroutine());
         OnEnemyKilled?.Invoke();
     }
 
@@ -64,7 +137,7 @@ public class GameManager : MonoBehaviour
 
     public void SetSpeed(float newSpeed)
     {
-        speed = Mathf.Clamp(newSpeed, 0.0f, Mathf.Infinity);
+        speed = Mathf.Clamp(newSpeed, 0.0f, terminalSpeed);
     }
 
     public Vector2 GetPlayerPosition() => player.transform.position;
