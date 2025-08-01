@@ -7,10 +7,14 @@ public class Mage : MonoBehaviour
     [Header("References")]
     [SerializeField] private Lightning lightningPrefab;
     [SerializeField] private List<SpriteRenderer> spriteRenderers;
+    private Hitbox hitbox;
+    private TrackBody trackBody;
 
     [Header("Data")]
     [SerializeField] private float speedGain;
     [SerializeField] private float lightningChargeDuration = 10f;
+    [SerializeField] private float targetPosMinX;
+    [SerializeField] private float targetPosMaxX;
 
     [Header("Visual")]
     [SerializeField] private float gradientColorFrequency;
@@ -20,10 +24,10 @@ public class Mage : MonoBehaviour
     [SerializeField] private Color flashColor;
     [SerializeField] private Color castEndColor;
 
-    private Hitbox hitbox;
     private Lightning currentLightning;
 
     private float randomNum;
+    private float targetPosX;
 
     private void Awake()
     {
@@ -31,22 +35,41 @@ public class Mage : MonoBehaviour
 
         hitbox = GetComponentInChildren<Hitbox>();
         hitbox.OnHit += OnHit;
+
+        trackBody = GetComponent<TrackBody>();
     }
 
     private void Start()
     {
-        StartCoroutine(CooldownCoroutine(initialChargePercent: Random.Range(0.35f, 0.65f)));
+        StartCoroutine(SpawnCoroutine());
     }
 
     private void Update()
     {
         if (currentLightning != null) currentLightning.SetBaseColor(GetGradientColor());
+        MoveToPosX(targetPosX);
     }
 
     private void OnHit()
     {
         GameManager.Instance.EnemyKilled(speedGain);
         Destroy(gameObject);
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        float timer = 0.0f;
+        targetPosX = Random.Range(targetPosMinX, targetPosMaxX);
+
+        float distanceToTargetPos = Mathf.Abs(targetPosX - transform.position.x);
+        while (distanceToTargetPos <= 4.0f)
+        {
+            timer += Time.deltaTime;
+            SetColor(GetGradientColor());
+            yield return new WaitForEndOfFrame();
+        }
+
+        StartCoroutine(CooldownCoroutine(initialChargePercent: Random.Range(0.3f, 0.5f)));
     }
 
     private IEnumerator CooldownCoroutine(float initialChargePercent = 0.0f)
@@ -104,6 +127,18 @@ public class Mage : MonoBehaviour
     private void CastLightning()
     {
         currentLightning = Instantiate(lightningPrefab);
+    }
+
+    private void MoveToPosX(float targetPosX)
+    {
+        if (transform.position.x > targetPosX)
+        {
+            trackBody.MoveHorizontal(-1.0f);
+        }
+        else
+        {
+            trackBody.MoveHorizontal(1.0f);
+        }
     }
 
     public Color GetGradientColor()

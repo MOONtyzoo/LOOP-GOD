@@ -38,10 +38,10 @@ public class Player : MonoBehaviour
         heightVisual = GetComponentInChildren<HeightVisual>();
         hitbox = GetComponentInChildren<Hitbox>();
         gun = GetComponentInChildren<PlayerGun>();
-        gun.SetAmmo(3);
         swordHurtbox.Disable();
 
         trackBody.SetTrack(2);
+        gun.SetAmmo(3);
 
         MoveUpButton = new InputButton("MoveUp", 0.5f * trackBody.GetTrackSwitchDuration());
         MoveDownButton = new InputButton("MoveDown", 0.5f * trackBody.GetTrackSwitchDuration());
@@ -168,4 +168,6 @@ public class Player : MonoBehaviour
         isUsingSword = false;
         swordHurtbox.Disable();
     }
+
+    public int GetTrack() => trackBody.GetTrack();
 }

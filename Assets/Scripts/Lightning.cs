@@ -13,6 +13,7 @@ public class Lightning : MonoBehaviour
     private Mage caster;
 
     [Header("Stats")]
+    [SerializeField] private float spawnRadiusX;
     [SerializeField] private float followDuration;
     [SerializeField] private float warningDuration;
     [SerializeField] private float strikeDuration;
@@ -32,7 +33,7 @@ public class Lightning : MonoBehaviour
         SetColor(transparentColor);
         hurtbox.Disable();
 
-        SetPositionToPlayer();
+        SetPositionToNearPlayer();
         StartCoroutine(FollowCoroutine());
     }
 
@@ -104,9 +105,10 @@ public class Lightning : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void SetPositionToPlayer()
+    public void SetPositionToNearPlayer()
     {
-        transform.position = new Vector2(GameManager.Instance.GetPlayerPosition().x, 0.0f);
+        float targetPosX = GameManager.Instance.GetPlayerPosition().x + UnityEngine.Random.Range(-spawnRadiusX, spawnRadiusX);
+        transform.position = new Vector2(targetPosX, 0.0f);
     }
 
     public void FollowPlayer()

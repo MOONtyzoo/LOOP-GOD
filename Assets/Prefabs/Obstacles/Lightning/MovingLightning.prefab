@@ -436,6 +436,7 @@ MonoBehaviour:
   lightningSprite: {fileID: 1373071331458018577}
   warningLabel: {fileID: 8783674350095285627}
   hurtbox: {fileID: 3036757404346655325}
+  spawnRadiusX: 2.5
   followDuration: 1.1
   warningDuration: 1
   strikeDuration: 0.2

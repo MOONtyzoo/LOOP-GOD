@@ -316,11 +316,14 @@ MonoBehaviour:
   - {fileID: 5785455014990385355}
   speedGain: 5
   lightningChargeDuration: 10
+  targetPosMinX: 6.5
+  targetPosMaxX: 12.5
   gradientColorFrequency: 4
   gradientColor1: {r: 0, g: 1, b: 0.6039216, a: 1}
   gradientColor2: {r: 0, g: 1, b: 0.87303686, a: 1}
   flashDuration: 0.5
   flashColor: {r: 1, g: 1, b: 1, a: 1}
+  castEndColor: {r: 0.42075467, g: 0.4757004, b: 1, a: 1}
 --- !u!114 &5567741300081507552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,11 +336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28428926db9c49041b28bf8af70bb705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeedMax: 0
-  backwardSpeedMax: 0
-  acceleration: 0
-  turnFactor: 0
-  trackSwitchDuration: 0
+  forwardSpeedMax: 3
+  backwardSpeedMax: 3
+  acceleration: 5
+  turnFactor: 1
+  trackSwitchDuration: 0.5
 --- !u!50 &3889710157259144426
 Rigidbody2D:
   serializedVersion: 5
@@ -363,7 +366,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &8991955137223759603
 GameObject:

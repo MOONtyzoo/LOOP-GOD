@@ -29,6 +29,10 @@ public class TrackBody : MonoBehaviour
         rbody = GetComponentInParent<Rigidbody2D>();
     }
 
+    public void MoveToTrack(int targetTrackIdx)
+    {
+        StartCoroutine(changeTrackCoroutine(targetTrackIdx));
+    }
     public bool CanMoveUp() => trackIdx != TRACK_IDX_TOP && !isChangingTracks;
     public void MoveUp()
     {
@@ -100,5 +104,6 @@ public class TrackBody : MonoBehaviour
         return trackPosY;
     }
 
+    public int GetTrack() => trackIdx;
     public float GetTrackSwitchDuration() => trackSwitchDuration;
 }
