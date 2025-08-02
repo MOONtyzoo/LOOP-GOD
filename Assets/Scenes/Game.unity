@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &250758450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -816,6 +816,12 @@ MonoBehaviour:
   followMultiplier: 0.5
   tiltStrength: 0.5
   tiltSmoothSpeed: 2
+  zoomDefault: 7.63
+  zoomDefaultOffsetX: 2.13
+  zoomStartSpeed: 20
+  zoomEndSpeed: 40
+  zoomFactor: 3
+  zoomOffsetFactorX: 7.62
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,7 +1075,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 12
+      scalar: 18
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5902,7 +5908,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10730,7 +10736,7 @@ MonoBehaviour:
   trackWidth: 100
   trackSpawnPosY: 0
   scrollMultiplier: 1
-  trackThresholdX: -115
+  trackThresholdX: -130
   initialTrackOffset: -15
 --- !u!1 &801371604
 GameObject:
@@ -10855,7 +10861,7 @@ MonoBehaviour:
   trackWidth: 100
   trackSpawnPosY: -5.44
   scrollMultiplier: 0.15
-  trackThresholdX: -116
+  trackThresholdX: -145
   initialTrackOffset: -16
 --- !u!114 &944888211 stripped
 MonoBehaviour:
@@ -11365,7 +11371,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -16458,7 +16464,7 @@ Transform:
   m_GameObject: {fileID: 1775337395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 12.56, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -8,19 +8,32 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float tiltStrength;
     [SerializeField] private float tiltSmoothSpeed;
 
+    [SerializeField] private float zoomDefault;
+    [SerializeField] private float zoomDefaultOffsetX;
+    [SerializeField] private float zoomStartSpeed;
+    [SerializeField] private float zoomEndSpeed;
+    [SerializeField] private float zoomFactor;
+    [SerializeField] private float zoomOffsetFactorX;
+
     private new Camera camera;
 
     private float currentTilt = 0f;
+    private float currentZoom;
+    private float currentOffsetX;
 
     private void Awake()
     {
         camera = GetComponent<Camera>();
+
+        currentZoom = zoomDefault;
+        currentOffsetX = zoomDefaultOffsetX;
     }
 
     private void Update()
     {
         SmoothFollowPlayerY();
         Tilt();
+        Zoom();
     }
 
     private void SmoothFollowPlayerY()
@@ -39,5 +52,22 @@ public class CameraFollow : MonoBehaviour
         currentTilt = Mathf.Lerp(currentTilt, targetTilt, tiltSmoothSpeed * Time.deltaTime);
         Quaternion newRotation = Quaternion.Euler(rotationX, rotationY, currentTilt);
         transform.rotation = newRotation;
+    }
+
+    private void Zoom()
+    {
+        float speed = GameManager.Instance.GetPlayerSpeed();
+        float zoomLerpVal = Mathf.Clamp((speed - zoomStartSpeed) / (zoomEndSpeed - zoomStartSpeed), 0.0f, 1.0f);
+        Debug.Log(zoomLerpVal);
+
+        float targetZoom = zoomDefault + zoomLerpVal * zoomFactor;
+        float newZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * tiltSmoothSpeed);
+        currentZoom = newZoom;
+        camera.orthographicSize = currentZoom;
+
+        float targetX = zoomDefaultOffsetX + zoomLerpVal * zoomOffsetFactorX;
+        float newOffsetX = Mathf.Lerp(currentOffsetX, targetX, Time.deltaTime * tiltSmoothSpeed);
+        currentOffsetX = newOffsetX;
+        transform.position = new Vector3(currentOffsetX, transform.position.y, transform.position.z);
     }
 }
