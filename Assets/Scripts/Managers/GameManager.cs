@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Player player;
+    [SerializeField] private LoopGod loopGod;
 
     [Header("Speed Adjustments")]
     [SerializeField, Tooltip("If lower than this speed, naturally accelerate to it.")]
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         }
 
         player.OnHit += Player_OnHit;
+        loopGod.OnHitPlayer += LoopGod_OnHitPlayer;
     }
 
     private void Player_OnHit()
@@ -65,6 +67,11 @@ public class GameManager : MonoBehaviour
 
         float reductionFactor = Mathf.Max(1f, hitReductionMultiplier * (speed - naturalRunSpeed));
         DecreaseSpeed(hitReductionMin*reductionFactor);
+    }
+
+    private void LoopGod_OnHitPlayer()
+    {
+        EndGame();
     }
 
     private void Update()
@@ -116,13 +123,18 @@ public class GameManager : MonoBehaviour
     }
 
     public float GetDistance() => distance;
-    public float GetSpeed() => speed;
+    public float GetPlayerSpeed() => speed;
 
     public void EnemyKilled(float speedGain)
     {
         IncreaseSpeed(speedGain);
         StartCoroutine(StunEquilibriumDecayCoroutine());
         OnEnemyKilled?.Invoke();
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("Game Over!");
     }
 
     public void IncreaseSpeed(float amount)

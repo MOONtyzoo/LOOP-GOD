@@ -6,6 +6,7 @@ public class DebugPanel : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private PlayerGun playerGun;
+    [SerializeField] private LoopGod loopGod;
 
     [Header("Text Labels")]
     [SerializeField] private TextMeshProUGUI speedLabel;
@@ -14,8 +15,8 @@ public class DebugPanel : MonoBehaviour
 
     private void Update()
     {
-        speedLabel.text = "Speed: " + GameManager.Instance.GetSpeed().ToString("F2");
-        distanceLabel.text = "Distance: " + GameManager.Instance.GetDistance().ToString("F2");
+        speedLabel.text = "Speed: " + GameManager.Instance.GetPlayerSpeed().ToString("F2");
+        distanceLabel.text = "Loop God Distance: " + loopGod.GetDistance().ToString("F2");
         ammoLabel.text = "Ammo: " + playerGun.GetAmmo() + " / " + playerGun.GetMaxAmmo();
     }
 }
