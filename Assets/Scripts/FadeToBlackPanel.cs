@@ -6,6 +6,7 @@ public class FadeToBlackPanel : MonoBehaviour
 {
     [SerializeField] private Color blackColor;
     [SerializeField] private Color transparentColor;
+    [SerializeField] private float waitDuration;
     [SerializeField] private float fadeDuration;
 
     private Image image;
@@ -25,6 +26,7 @@ public class FadeToBlackPanel : MonoBehaviour
     {
         float timer = 0.0f;
         float timerNormalized;
+        yield return new WaitForSeconds(waitDuration);
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
