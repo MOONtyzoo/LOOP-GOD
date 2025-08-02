@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1030e778d6c8678498b5860c46980fb7, type: 3}
+  m_Name: Angered
+  m_EditorClassIdentifier: 
+  tagID: angered
+  animations:
+  - {fileID: 11400000, guid: 1ebe0e652f1840b4bb5b6e24a02b19a6, type: 2}
+  - {fileID: 11400000, guid: 97632e3a20c481b4daee983ae79c0127, type: 2}

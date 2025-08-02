@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1030e778d6c8678498b5860c46980fb7, type: 3}
+  m_Name: Mystic
+  m_EditorClassIdentifier: 
+  tagID: mystic
+  animations:
+  - {fileID: 11400000, guid: 310df68b7257500488ba444b605fa49f, type: 2}
+  - {fileID: 11400000, guid: 65b64553376d7b741b5227c714564b91, type: 2}
+  - {fileID: 11400000, guid: acacd08a6d137bf4c9c1378dc9b0df26, type: 2}
