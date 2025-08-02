@@ -71,7 +71,7 @@ public class LoopGod : MonoBehaviour
 
     private void FollowPlayer()
     {
-        float relativeSpeed = followSpeed - GameManager.Instance.GetPlayerSpeed();
+        float relativeSpeed = followSpeed - GameManager.Instance.GetSpeed();
         SetDistance(currentDistance - relativeSpeed * Time.deltaTime);
     }
 

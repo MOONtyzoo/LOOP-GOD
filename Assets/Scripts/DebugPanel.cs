@@ -15,7 +15,7 @@ public class DebugPanel : MonoBehaviour
 
     private void Update()
     {
-        speedLabel.text = "Speed: " + GameManager.Instance.GetPlayerSpeed().ToString("F2");
+        speedLabel.text = "Speed: " + GameManager.Instance.GetSpeed().ToString("F2");
         distanceLabel.text = "Loop God Distance: " + loopGod.GetDistance().ToString("F2");
         ammoLabel.text = "Ammo: " + playerGun.GetAmmo() + " / " + playerGun.GetMaxAmmo();
     }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     public event Action OnEnemyKilled;
     public event Action<float> OnSpeedChanged;
+    public event Action<int> OnLapChanged;
 
     [Header("References")]
     [SerializeField] private Player player;
@@ -41,8 +42,12 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("Multiplier for how much speed is lost on hit proprtional to speed above natural run speed.")]
     private float hitReductionMultiplier;
 
+    [Header("Laps")]
+    [SerializeField] private float lapLength;
+
     private float distance = 0.0f;
     private float speed = 0.0f;
+    private int currentLap;
     private bool isRunAccelerationStunned = false;
     private bool isEquilibriumDecayStunned = false;
 
@@ -60,6 +65,8 @@ public class GameManager : MonoBehaviour
 
         player.OnHit += Player_OnHit;
         loopGod.OnHitPlayer += LoopGod_OnHitPlayer;
+
+        SetLap(1);
     }
 
     private void Player_OnHit()
@@ -78,7 +85,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateSpeed();
-        distance += speed * Time.deltaTime;
+        SetDistance(distance + speed * Time.deltaTime);
     }
 
     private void UpdateSpeed()
@@ -123,8 +130,21 @@ public class GameManager : MonoBehaviour
         isEquilibriumDecayStunned = false;
     }
 
+    public void SetDistance(float newDistance)
+    {
+        distance = newDistance;
+        int calculatedLap = (int)(distance / lapLength) + 1;
+        if (calculatedLap != currentLap) SetLap(calculatedLap);
+    }
     public float GetDistance() => distance;
-    public float GetPlayerSpeed() => speed;
+
+    public int GetLap() => currentLap;
+    public void SetLap(int newLap)
+    {
+        currentLap = newLap;
+        OnLapChanged?.Invoke(newLap);
+    }
+    public float GetProgressToNextLap() => (distance % lapLength) / lapLength;
 
     public void EnemyKilled(float speedGain)
     {
@@ -148,6 +168,7 @@ public class GameManager : MonoBehaviour
         SetSpeed(speed - amount);
     }
 
+    public float GetSpeed() => speed;
     public void SetSpeed(float newSpeed)
     {
         float oldSpeed = speed;

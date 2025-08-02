@@ -9,7 +9,7 @@ public class WindParticles : MonoBehaviour
 
     private void Update()
     {
-        float simulationSpeed = GameManager.Instance.GetPlayerSpeed() * speedScaling;
+        float simulationSpeed = GameManager.Instance.GetSpeed() * speedScaling;
 
         ParticleSystem.MainModule mainModule = frontParticles.main;
         mainModule.simulationSpeed = simulationSpeed;
