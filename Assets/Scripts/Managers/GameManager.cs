@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public event Action OnEnemyKilled;
+    public event Action<float> OnSpeedChanged;
 
     [Header("References")]
     [SerializeField] private Player player;
@@ -84,13 +85,13 @@ public class GameManager : MonoBehaviour
     {
         if (speed < naturalRunSpeed && !isRunAccelerationStunned)
         {
-            speed += runAcceleration * Time.deltaTime;
+            IncreaseSpeed(runAcceleration * Time.deltaTime);
         }
 
         if (speed > equilibriumSpeed && !isEquilibriumDecayStunned)
         {
             float decelerationScaling = Mathf.Pow(speed-equilibriumSpeed, equilibriumDecayExponent);
-            speed -= equilibirumDecayRate * decelerationScaling * Time.deltaTime;
+            DecreaseSpeed(equilibirumDecayRate * decelerationScaling * Time.deltaTime);
         }
     }
 
@@ -149,8 +150,11 @@ public class GameManager : MonoBehaviour
 
     public void SetSpeed(float newSpeed)
     {
+        float oldSpeed = speed;
         speed = Mathf.Clamp(newSpeed, 0.0f, terminalSpeed);
+        if (speed != oldSpeed) OnSpeedChanged?.Invoke(speed);
     }
 
+    public float GetTerminalSpeed() => terminalSpeed;
     public Vector2 GetPlayerPosition() => player.transform.position;
 }

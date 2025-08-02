@@ -302,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176626787}
   - component: {fileID: 176626788}
+  - component: {fileID: 176626789}
   m_Layer: 5
   m_Name: BulletBar
   m_TagString: Untagged
@@ -360,6 +361,28 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &176626789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176626786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0f9cf9cab10f24eaaa03792cee8a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSlots:
+  - {fileID: 1666065794}
+  - {fileID: 1457607309}
+  - {fileID: 1514518976}
+  - {fileID: 866248786}
+  - {fileID: 567392643}
+  - {fileID: 2105070140}
+  bulletSlotEmptySprite: {fileID: 21300000, guid: ba8d15a973f52f84f99ced63045d6ea6, type: 3}
+  bulletSlotFullSprite: {fileID: 21300000, guid: 3a4d98e492d4c854089e8ee1ab6de6e5, type: 3}
+  playerGun: {fileID: 913731252}
 --- !u!1 &195541019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1377,7 @@ GameObject:
   - component: {fileID: 567392643}
   - component: {fileID: 567392645}
   m_Layer: 5
-  m_Name: BulletSlot (1)
+  m_Name: BulletSlot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11472,6 +11495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 850047640}
+  - component: {fileID: 850047641}
   m_Layer: 5
   m_Name: SpeedBar
   m_TagString: Untagged
@@ -11502,6 +11526,20 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: 0}
   m_SizeDelta: {x: 90, y: 574}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &850047641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850047639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d6354c8e56faa44a2cd6af859545b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillBar: {fileID: 565957766}
+  speedLabel: {fileID: 920163852}
 --- !u!1 &857685398
 GameObject:
   m_ObjectHideFlags: 0
@@ -11551,7 +11589,7 @@ GameObject:
   - component: {fileID: 866248786}
   - component: {fileID: 866248788}
   m_Layer: 5
-  m_Name: BulletSlot (2)
+  m_Name: BulletSlot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11640,6 +11678,7 @@ GameObject:
   - component: {fileID: 869096753}
   - component: {fileID: 869096755}
   - component: {fileID: 869096754}
+  - component: {fileID: 869096756}
   m_Layer: 5
   m_Name: BarBorder
   m_TagString: Untagged
@@ -11704,6 +11743,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869096752}
   m_CullTransparentMesh: 1
+--- !u!114 &869096756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 869096752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.6156863}
+  m_EffectDistance: {x: -5.35, y: -5.79}
+  m_UseGraphicAlpha: 1
 --- !u!114 &913731252 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1529532454194481643, guid: f636bd2ddebe61c49a6e4870daee448d, type: 3}
@@ -12224,6 +12278,135 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169496794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1181464298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1181464300}
+  - component: {fileID: 1181464299}
+  m_Layer: 0
+  m_Name: MusicPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1181464299
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181464298}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: e404cecc6b9c7da4eaa42568af9b8916, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 3c9bad259aa9c9c45b9b4de791d0506b, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3c9bad259aa9c9c45b9b4de791d0506b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1181464300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181464298}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -17438,7 +17621,7 @@ GameObject:
   - component: {fileID: 1457607309}
   - component: {fileID: 1457607311}
   m_Layer: 5
-  m_Name: BulletSlot (4)
+  m_Name: BulletSlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17665,7 +17848,7 @@ GameObject:
   - component: {fileID: 1514518976}
   - component: {fileID: 1514518978}
   m_Layer: 5
-  m_Name: BulletSlot (3)
+  m_Name: BulletSlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17896,7 +18079,7 @@ GameObject:
   - component: {fileID: 1666065794}
   - component: {fileID: 1666065796}
   m_Layer: 5
-  m_Name: BulletSlot (5)
+  m_Name: BulletSlot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18370,7 +18553,7 @@ GameObject:
   - component: {fileID: 2105070140}
   - component: {fileID: 2105070142}
   m_Layer: 5
-  m_Name: BulletSlot
+  m_Name: BulletSlot6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18780,6 +18963,7 @@ SceneRoots:
   - {fileID: 234123404}
   - {fileID: 197006280}
   - {fileID: 1595325707}
+  - {fileID: 1181464300}
   - {fileID: 64844839}
   - {fileID: 519420032}
   - {fileID: 120023008}
