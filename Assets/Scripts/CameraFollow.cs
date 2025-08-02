@@ -58,7 +58,6 @@ public class CameraFollow : MonoBehaviour
     {
         float speed = GameManager.Instance.GetPlayerSpeed();
         float zoomLerpVal = Mathf.Clamp((speed - zoomStartSpeed) / (zoomEndSpeed - zoomStartSpeed), 0.0f, 1.0f);
-        Debug.Log(zoomLerpVal);
 
         float targetZoom = zoomDefault + zoomLerpVal * zoomFactor;
         float newZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * tiltSmoothSpeed);
