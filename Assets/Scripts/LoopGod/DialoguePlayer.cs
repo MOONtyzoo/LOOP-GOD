@@ -3,7 +3,7 @@ using System.Collections;
 using Febucci.UI.Core;
 using UnityEngine;
 
-public class LoopGodDialogue : MonoBehaviour
+public class DialoguePlayer : MonoBehaviour
 {
     public event Action OnDialogueEnded;
 
@@ -14,9 +14,6 @@ public class LoopGodDialogue : MonoBehaviour
     [Header("Data")]
     [SerializeField] private float timeBetweenLines;
     [SerializeField] private float textBoxAppearRate;
-
-    [Header("Dialogue Fields")]
-    [SerializeField] private Dialogue debugDialogue;
 
     private Dialogue currentDialogue;
     private int lineCount;
@@ -40,18 +37,18 @@ public class LoopGodDialogue : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartCoroutine(PlayDialogueCoroutine(debugDialogue));
-        }
-
         showAmount = Mathf.Lerp(showAmount, targetShowAmount, Time.deltaTime * textBoxAppearRate);
         animator.SetFloat("ShowAmount", showAmount);
     }
 
-    private IEnumerator PlayDialogueCoroutine(Dialogue dialogue)
+    public void Play(Dialogue dialogue)
     {
         currentDialogue = dialogue;
+        StartCoroutine(PlayDialogueCoroutine());
+    }
+
+    private IEnumerator PlayDialogueCoroutine()
+    {
         ShowDialogue();
 
         while (dialogueIndex < lineCount)

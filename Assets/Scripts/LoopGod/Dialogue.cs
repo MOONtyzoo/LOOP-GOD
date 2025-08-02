@@ -11,5 +11,5 @@ public class Dialogue : ScriptableObject
 [Serializable]
 public struct DialogueLine
 {
-    [TextArea(1, 5)] public string text;
+    [TextArea(1, 12)] public string text;
 }

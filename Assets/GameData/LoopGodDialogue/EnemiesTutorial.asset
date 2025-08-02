@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EnemiesTutorial
   m_EditorClassIdentifier: 
   lines:
-  - text: '<mystic>My minions strike to slow your run
+  - text: '<mystic>My minions strike to slow your run.
 
       But take them down,
       and you gain some.</mystic>'
-  - text: '<mystic>Each clash can cost or earn you speed
+  - text: '<mystic>Each clash can cost or earn you speed.
 
       Choose your fights
       with skill and heed.</mystic>'

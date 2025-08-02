@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ae22fa9be3dc04e98fb4267726891a, type: 3}
+  m_Name: IntroDialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - text: "<angered><color=#FF284D>CHALLENGER...</angered></color>\n\n<mystic>You
+      have entered the ring of the mad divine \u2014\r\nThe cursed land where the
+      </><color=#0BFF70><angered>LOOP GOD</angered></color><mystic> resides.\r\r\n\r\nPlay
+      my game, endure the pain \u2014\r\nAnd you may strike the serpent\u2019s brain.\r\n\r\n</><angered><color=#FF284D>BUT
+      FAIL\u2026</angered></color><mystic> and you shall join the dead \u2014\r\nYour
+      soul recycled, your name unsaid.\r\n\r\n</><angered>The track will twist, the
+      world will bend \u2014 <color=#0BFF70>but only you can reach the end.</angered></color>\r\n"
