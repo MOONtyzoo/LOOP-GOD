@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TrackScroller trackScroller;
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private DialoguePlayer dialoguePlayer;
+    [SerializeField] private FadeToBlackPanel fadeToBlackPanel;
+    [SerializeField] private EndScreenUI endScreenUI;
 
     [Header("Speed Adjustments")]
     [SerializeField, Tooltip("If lower than this speed, naturally accelerate to it.")]
@@ -50,6 +53,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<DifficultyRange> difficultyRanges = new List<DifficultyRange>();
     private DifficultyLevel currentDifficultyLevel;
 
+    [Header("Game Over Dialogue")]
+    [SerializeField] private List<Dialogue> gameOverDialogue;
+
     [Serializable]
     private struct DifficultyRange
     {
@@ -65,6 +71,8 @@ public class GameManager : MonoBehaviour
     private bool isRunAccelerationStunned = false;
     private bool isEquilibriumDecayStunned = false;
     private bool lapProgressPaused = false;
+    private bool isGameOver = false;
+    private float timeSurvived = 0.0f;
 
     private void Awake()
     {
@@ -109,6 +117,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (isGameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(0);
+            }
+            return;   
+        }
+
+        timeSurvived += Time.deltaTime;
+
         UpdateSpeed();
         if (!lapProgressPaused)
         {
@@ -214,6 +233,18 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("Game Over!");
+        isGameOver = true;
+        lapProgressPaused = true;
+        SetSpeed(0f);
+
+        player.DisableInputs();
+        enemySpawner.DestroyAllEnemies();
+        enemySpawner.enabled = false;
+
+        fadeToBlackPanel.FadeToBlack();
+        dialoguePlayer.SetTimeBetweenLines(10000f);
+        dialoguePlayer.PlayRandomFromList(gameOverDialogue);
+        endScreenUI.OpenEndScreen();
     }
 
     public void IncreaseSpeed(float amount)
@@ -235,6 +266,7 @@ public class GameManager : MonoBehaviour
     }
 
     public float GetLapLength() => currentDifficultyLevel.lapLength;
+    public float GetTimeSurvived() => timeSurvived;
 
     public float GetTerminalSpeed() => terminalSpeed;
     public Vector2 GetPlayerPosition() => player.transform.position;

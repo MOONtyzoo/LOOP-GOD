@@ -65,6 +65,14 @@ public class EnemySpawner : MonoBehaviour
             spawnCooldowns.Add(enemySpawnData.GetRandomSpawnCooldown());
         }
     }
+
+    public void DestroyAllEnemies()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }
 
 [Serializable]

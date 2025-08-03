@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Febucci.UI.Core;
 using UnityEngine;
 
@@ -41,6 +42,14 @@ public class DialoguePlayer : MonoBehaviour
     {
         currentDialogue = dialogue;
         StartCoroutine(PlayDialogueCoroutine());
+    }
+
+    public void PlayRandomFromList(List<Dialogue> dialogueList)
+    {
+        if (dialogueList.Count == 0) return;
+        int randomIndex = UnityEngine.Random.Range(0, dialogueList.Count);
+        Dialogue dialogueToPlay = dialogueList[randomIndex];
+        Play(dialogueToPlay);
     }
 
     private IEnumerator PlayDialogueCoroutine()
@@ -93,4 +102,6 @@ public class DialoguePlayer : MonoBehaviour
         typewriter.gameObject.SetActive(false);
         targetShowAmount = 0f;
     }
+
+    public float SetTimeBetweenLines(float newTimeBetweenLines) => timeBetweenLines = newTimeBetweenLines; 
 }

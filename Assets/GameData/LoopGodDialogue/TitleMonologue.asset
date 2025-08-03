@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00ae22fa9be3dc04e98fb4267726891a, type: 3}
-  m_Name: IntroDialogue
+  m_Name: TitleMonologue
   m_EditorClassIdentifier: 
   lines:
   - text: "<angered><color=#FF284D>CHALLENGER...</angered></color>\n\n<mystic>You

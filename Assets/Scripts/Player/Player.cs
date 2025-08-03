@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private InputButton JumpButton;
     private InputButton SwordButton;
     private InputButton GunButton;
+    private bool inputDisabled = false;
 
     private void Awake()
     {
@@ -76,6 +77,12 @@ public class Player : MonoBehaviour
 
     private void HandleInput()
     {
+        if (inputDisabled)
+        {
+            horizontalInput = 0.0f;
+            return;
+        }
+
         horizontalInput = Input.GetAxis("Horizontal");
         UpdateInputButtons();
 
@@ -171,4 +178,13 @@ public class Player : MonoBehaviour
     }
 
     public int GetTrack() => trackBody.GetTrack();
+    public void DisableInputs()
+    {
+        MoveUpButton.Disable();
+        MoveDownButton.Disable();
+        SwordButton.Disable();
+        GunButton.Disable();
+        JumpButton.Disable();
+        inputDisabled = true;
+    }
 }

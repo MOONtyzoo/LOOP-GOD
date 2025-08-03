@@ -7,7 +7,8 @@ public class FadeToBlackPanel : MonoBehaviour
     [SerializeField] private Color blackColor;
     [SerializeField] private Color transparentColor;
     [SerializeField] private float waitDuration;
-    [SerializeField] private float fadeDuration;
+    [SerializeField] private float fadeFromBlackDuration;
+    [SerializeField] private float fadeToBlackDuration;
 
     private Image image;
 
@@ -19,10 +20,20 @@ public class FadeToBlackPanel : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FlashCoroutine(blackColor, transparentColor));
+        FadeFromBlack();
     }
 
-    private IEnumerator FlashCoroutine(Color fromColor, Color toColor)
+    public void FadeFromBlack()
+    {
+        StartCoroutine(FlashCoroutine(blackColor, transparentColor, fadeFromBlackDuration, waitDuration));
+    }
+
+    public void FadeToBlack()
+    {
+        StartCoroutine(FlashCoroutine(transparentColor, blackColor, fadeToBlackDuration));
+    }
+
+    private IEnumerator FlashCoroutine(Color fromColor, Color toColor, float fadeDuration, float waitDuration=0.0f)
     {
         float timer = 0.0f;
         float timerNormalized;

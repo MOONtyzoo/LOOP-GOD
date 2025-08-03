@@ -26,8 +26,19 @@ public class IntroTextPanel : MonoBehaviour
     private IEnumerator IntroCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        dialoguePlayer.Play(introDialogue);
-        dialoguePlayer.OnDialogueEnded += () => StartCoroutine(FlashCoroutine());
+        if (PlayerPrefs.GetInt("SeenIntro?") == 0)
+        {
+            dialoguePlayer.Play(introDialogue);
+            dialoguePlayer.OnDialogueEnded += () =>
+            {
+                PlayerPrefs.SetInt("SeenIntro?", 1);
+                StartCoroutine(FlashCoroutine());
+            };
+        }
+        else
+        {
+            StartCoroutine(FlashCoroutine());
+        }
     }
     
     private IEnumerator FlashCoroutine()

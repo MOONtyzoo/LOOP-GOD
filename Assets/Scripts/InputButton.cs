@@ -7,6 +7,7 @@ public class InputButton
     private bool valueLastFrame = false;
     private bool valueThisFrame = false;
     private float bufferTime = 0.0f;
+    private bool isEnabled;
 
     private float timeSinceLastPress = Mathf.Infinity;
 
@@ -14,6 +15,7 @@ public class InputButton
     {
         this.buttonName = buttonName;
         this.bufferTime = bufferTime;
+        isEnabled = true;
     }
 
     public void Update()
@@ -25,9 +27,12 @@ public class InputButton
         if (valueLastFrame == false && valueThisFrame == true) timeSinceLastPress = 0.0f;
     }
 
-    public bool WasPressed() => timeSinceLastPress <= bufferTime;
-    public bool IsPressed() => Input.GetButton(buttonName);
-    public bool WasReleased() => valueLastFrame == true && valueThisFrame == false;
+    public bool WasPressed() => timeSinceLastPress <= bufferTime && isEnabled;
+    public bool IsPressed() => Input.GetButton(buttonName) && isEnabled;
+    public bool WasReleased() => valueLastFrame == true && valueThisFrame == false && isEnabled;
 
     public void ClearBuffer() => timeSinceLastPress = Mathf.Infinity;
+
+    public void Enable() => isEnabled = true;
+    public void Disable() => isEnabled = false;
 }
