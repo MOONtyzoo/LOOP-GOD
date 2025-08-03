@@ -15,7 +15,7 @@ public class LapProgressBarUI : MonoBehaviour
 
     private void Update()
     {
-        progressBar.fillAmount = GameManager.Instance.GetProgressToNextLap();
+        progressBar.fillAmount = GameManager.Instance.GetLapProgress();
     }
 
     private void GameManager_OnLapChanged(int newLap)

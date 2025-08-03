@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -42,10 +43,12 @@ public class GameManager : MonoBehaviour
     [SerializeField, Tooltip("Multiplier for how much speed is lost on hit proprtional to speed above natural run speed.")]
     private float hitReductionMultiplier;
 
-    [Header("Laps")]
-    [SerializeField] private float lapLength;
+    [Header("Difficulty Scaling")]
+    [SerializeField] private DifficultyLevel[] difficultyLevels = new DifficultyLevel[10];
+    private DifficultyLevel currentDifficultyLevel;
 
     private float distance = 0.0f;
+    private float lapProgress = 0.0f;
     private float speed = 0.0f;
     private int currentLap;
     private bool isRunAccelerationStunned = false;
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(StunAccelerationCoroutine());
 
         float reductionFactor = Mathf.Max(1f, hitReductionMultiplier * (speed - naturalRunSpeed));
-        DecreaseSpeed(hitReductionMin*reductionFactor);
+        DecreaseSpeed(hitReductionMin * reductionFactor);
     }
 
     private void LoopGod_OnHitPlayer()
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateSpeed();
-        SetDistance(distance + speed * Time.deltaTime);
+        SetLapProgress(lapProgress + Time.deltaTime * speed / GetLapLength());
+        distance += Time.deltaTime * speed;
     }
 
     private void UpdateSpeed()
@@ -130,21 +134,37 @@ public class GameManager : MonoBehaviour
         isEquilibriumDecayStunned = false;
     }
 
-    public void SetDistance(float newDistance)
+    public void SetLapProgress(float newLapProgress)
     {
-        distance = newDistance;
-        int calculatedLap = (int)(distance / lapLength) + 1;
-        if (calculatedLap != currentLap) SetLap(calculatedLap);
+        lapProgress = newLapProgress;
+        if (lapProgress > 1.0f) SetLap(currentLap + 1);
     }
-    public float GetDistance() => distance;
 
     public int GetLap() => currentLap;
     public void SetLap(int newLap)
     {
         currentLap = newLap;
+        lapProgress = 0.0f;
         OnLapChanged?.Invoke(newLap);
+
+        if (GetDifficultyLevelForLap(newLap) != currentDifficultyLevel)
+        {
+            SetDifficultyLevel(GetDifficultyLevelForLap(newLap));
+        }
     }
-    public float GetProgressToNextLap() => (distance % lapLength) / lapLength;
+    public float GetLapProgress() => lapProgress;
+    public float GetDistance() => distance;
+
+    public DifficultyLevel GetDifficultyLevel() => currentDifficultyLevel;
+    public void SetDifficultyLevel(DifficultyLevel newDifficultyLevel)
+    {
+        currentDifficultyLevel = newDifficultyLevel;
+    }
+    DifficultyLevel GetDifficultyLevelForLap(int lap)
+    {
+        int index = Mathf.Clamp((lap - 1) / 10, 0, difficultyLevels.Length);
+        return difficultyLevels[index];
+    }
 
     public void EnemyKilled(float speedGain)
     {
@@ -175,6 +195,8 @@ public class GameManager : MonoBehaviour
         speed = Mathf.Clamp(newSpeed, 0.0f, terminalSpeed);
         if (speed != oldSpeed) OnSpeedChanged?.Invoke(speed);
     }
+
+    public float GetLapLength() => currentDifficultyLevel.lapLength;
 
     public float GetTerminalSpeed() => terminalSpeed;
     public Vector2 GetPlayerPosition() => player.transform.position;
