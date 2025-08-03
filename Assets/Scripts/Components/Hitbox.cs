@@ -17,11 +17,14 @@ public class Hitbox : MonoBehaviour
     [Header("Behavior")]
     [SerializeField] private Teams team;
     [SerializeField] private ImmunityLevels immunityLevel = ImmunityLevels.Ground;
+    [SerializeField] private float immunityDuration = 0f;
 
     private SpriteRenderer spriteRenderer;
     private new Collider2D collider;
 
     private Coroutine flashCoroutine;
+
+    private bool hasHitImmunity = false;
 
     private void Awake()
     {
@@ -54,6 +57,7 @@ public class Hitbox : MonoBehaviour
             if (flashCoroutine != null) StopCoroutine(flashCoroutine);
             StartCoroutine(FlashCoroutine());
         }
+        if (immunityDuration > 0f) StartCoroutine(ImmunityCoroutine());
         OnHit?.Invoke();
     }
 
@@ -87,9 +91,22 @@ public class Hitbox : MonoBehaviour
         }
     }
 
+    private IEnumerator ImmunityCoroutine()
+    {
+        float timer = 0.0f;
+        hasHitImmunity = true;
+        while (timer < immunityDuration)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        hasHitImmunity = false;
+    }
+
     public Teams GetTeam() => team;
     public ImmunityLevels GetImmunityLevel() => immunityLevel;
     public void SetImmunityLevel(ImmunityLevels newImmunityLevel) => immunityLevel = newImmunityLevel;
+    public bool HasHitImmunity() => hasHitImmunity;
 }
 
 public enum Teams

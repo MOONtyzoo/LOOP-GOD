@@ -534,6 +534,10 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5479087971654157135, guid: 655fdea4cf3041449be93be4aca855a5, type: 3}
+      propertyPath: immunityDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5725289488453573271, guid: 655fdea4cf3041449be93be4aca855a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -11,18 +11,6 @@ public class PlayerBullet : MonoBehaviour
     private void Awake()
     {
         hurtbox = GetComponentInChildren<Hurtbox>();
-        hurtbox.OnHit += Hurtbox_OnHit;
-    }
-
-    private void Hurtbox_OnHit()
-    {
-        StartCoroutine(ReactivateHurtboxCoroutine());
-    }
-
-    private IEnumerator ReactivateHurtboxCoroutine()
-    {
-        yield return new WaitForSeconds(0.2f);
-        hurtbox.Enable();
     }
 
     private void Update()

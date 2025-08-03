@@ -69,7 +69,7 @@ public class Hurtbox : MonoBehaviour
             {
                 hitbox = result.GetComponent<Hitbox>();
                 bool isDifferentTeam = hitbox.GetTeam() != team;
-                bool canBreakImmunity = immunityBreak >= hitbox.GetImmunityLevel();
+                bool canBreakImmunity = immunityBreak >= hitbox.GetImmunityLevel() && (immunityBreak == ImmunityLevels.FullImmunity || !hitbox.HasHitImmunity());
                 if (isDifferentTeam && canBreakImmunity) return true;
             }
         }
