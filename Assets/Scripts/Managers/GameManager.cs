@@ -68,7 +68,10 @@ public class GameManager : MonoBehaviour
 
         player.OnHit += Player_OnHit;
         loopGod.OnHitPlayer += LoopGod_OnHitPlayer;
+    }
 
+    private void Start()
+    {
         SetLap(1);
     }
 
@@ -159,6 +162,7 @@ public class GameManager : MonoBehaviour
     public void SetDifficultyLevel(DifficultyLevel newDifficultyLevel)
     {
         currentDifficultyLevel = newDifficultyLevel;
+        loopGod.SetFollowSpeed(currentDifficultyLevel.loopGodFollowSpeed);
     }
     DifficultyLevel GetDifficultyLevelForLap(int lap)
     {

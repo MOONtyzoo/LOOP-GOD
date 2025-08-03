@@ -5,6 +5,7 @@ using UnityEngine;
 public class LoopGod : MonoBehaviour
 {
     public event Action OnHitPlayer;
+    public event Action<float> OnFollowSpeedChanged;
 
     [Header("References")]
     [SerializeField, Tooltip("The x position at which the loop god is considered to be at \"zero\" distance.")]
@@ -17,8 +18,6 @@ public class LoopGod : MonoBehaviour
     [Header("Gameplay Tuning")]
     [SerializeField, Tooltip("The furthest possible distance the loop god can be. Even if the player is moving faster, the loop god will not fall back further than this point.")]
     private float followDistanceLimit;
-    [SerializeField, Tooltip("The speed at which the loop god follows the player. If this is greater than the player's speed, the loop god will gain distance.")]
-    private float followSpeed;
     [SerializeField]
     private float distanceFactor;
 
@@ -38,6 +37,8 @@ public class LoopGod : MonoBehaviour
     private List<Transform> segments;
 
     private float currentDistance;
+    private float followSpeed = 0f;
+
     private float mouthOpenAmount;
 
     private void Awake()
@@ -113,4 +114,9 @@ public class LoopGod : MonoBehaviour
     }
 
     public float GetDistance() => currentDistance;
+    public void SetFollowSpeed(float newFollowSpeed)
+    {
+        followSpeed = newFollowSpeed;
+        OnFollowSpeedChanged?.Invoke(followSpeed);
+    }
 }

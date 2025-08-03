@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Difficulty 7
   m_EditorClassIdentifier: 
   lapLength: 150
+  loopGodFollowSpeed: 10
+  trackPrefabs: []
+  enemySpawnData: []
