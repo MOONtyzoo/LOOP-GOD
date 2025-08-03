@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
-  m_Name: Difficulty 7
+  m_Name: Difficulty Death
   m_EditorClassIdentifier: 
-  dialogueToPlay: {fileID: 0}
-  lapLength: 150
-  loopGodFollowSpeed: 22.5
+  dialogueToPlay: {fileID: 11400000, guid: 32826f3bfd762b54ea7ea185b0c6440b, type: 2}
+  lapLength: 10000
+  loopGodFollowSpeed: 55
   pausesLapProgress: 0
   trackPrefabs:
   - {fileID: 7439096927567806482, guid: e34801527ab43e0419f5bfbada77733d, type: 3}
   - {fileID: 7439096927567806482, guid: b89a6db7a02d3e344b1e7bf6b027be26, type: 3}
   - {fileID: 7439096927567806482, guid: f1d5b96093dadb949a97be9591536f16, type: 3}
-  - {fileID: 7439096927567806482, guid: 316dde4220d3874458ee6f6a99624e66, type: 3}
+  - {fileID: 7439096927567806482, guid: 3af0419c0421d4443aef4d50b8e1f26d, type: 3}
+  - {fileID: 7439096927567806482, guid: 5b44c1e4e0f117b4287b91c220820257, type: 3}
+  - {fileID: 7439096927567806482, guid: e34801527ab43e0419f5bfbada77733d, type: 3}
   enemySpawnData:
   - prefab: {fileID: 7741341188366508056, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
     spawnrateMin: 2.5
-    spawnrateMax: 5
+    spawnrateMax: 4
     maxEnemies: 3
     attackSpeed: 1

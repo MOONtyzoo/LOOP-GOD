@@ -548,27 +548,21 @@ MonoBehaviour:
   - lapRangeMin: 51
     lapRangeMax: 60
     difficultyLevel: {fileID: 11400000, guid: 663a4fcf5f9023d4c88edde4f7b628d3, type: 2}
-  - lapRangeMin: 51
-    lapRangeMax: 60
-    difficultyLevel: {fileID: 11400000, guid: 663a4fcf5f9023d4c88edde4f7b628d3, type: 2}
-  - lapRangeMin: 61
-    lapRangeMax: 70
-    difficultyLevel: {fileID: 11400000, guid: 2d5ad8b1613138e4a8b2016fdfd1fd35, type: 2}
   - lapRangeMin: 61
     lapRangeMax: 70
     difficultyLevel: {fileID: 11400000, guid: 2d5ad8b1613138e4a8b2016fdfd1fd35, type: 2}
   - lapRangeMin: 71
     lapRangeMax: 80
     difficultyLevel: {fileID: 11400000, guid: 084919ac618355644bc9fd576265800a, type: 2}
-  - lapRangeMin: 71
-    lapRangeMax: 80
-    difficultyLevel: {fileID: 11400000, guid: 084919ac618355644bc9fd576265800a, type: 2}
   - lapRangeMin: 81
     lapRangeMax: 90
     difficultyLevel: {fileID: 11400000, guid: 9fc84568dc62c2e44be6329afd03434e, type: 2}
-  - lapRangeMin: 81
-    lapRangeMax: 90
-    difficultyLevel: {fileID: 11400000, guid: 9fc84568dc62c2e44be6329afd03434e, type: 2}
+  - lapRangeMin: 91
+    lapRangeMax: 99
+    difficultyLevel: {fileID: 11400000, guid: 918efbd18dbcb5541900be12d559e8e7, type: 2}
+  - lapRangeMin: 101
+    lapRangeMax: 1000
+    difficultyLevel: {fileID: 11400000, guid: 701f28668b1698843a6f60871dfb54e4, type: 2}
 --- !u!4 &197006280
 Transform:
   m_ObjectHideFlags: 0

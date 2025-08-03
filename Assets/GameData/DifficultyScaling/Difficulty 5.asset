@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueToPlay: {fileID: 0}
   lapLength: 150
-  loopGodFollowSpeed: 18
+  loopGodFollowSpeed: 19
   pausesLapProgress: 0
   trackPrefabs:
-  - {fileID: 7439096927567806482, guid: 9b9165005fa2061439c6eb443c245c43, type: 3}
-  - {fileID: 7439096927567806482, guid: 9b9165005fa2061439c6eb443c245c43, type: 3}
+  - {fileID: 7439096927567806482, guid: f1d5b96093dadb949a97be9591536f16, type: 3}
+  - {fileID: 7439096927567806482, guid: b89a6db7a02d3e344b1e7bf6b027be26, type: 3}
+  - {fileID: 7439096927567806482, guid: 316dde4220d3874458ee6f6a99624e66, type: 3}
   enemySpawnData:
   - prefab: {fileID: 7741341188366508056, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
     spawnrateMin: 3
