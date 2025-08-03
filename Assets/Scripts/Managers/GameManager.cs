@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private LoopGod loopGod;
     [SerializeField] private TrackScroller trackScroller;
+    [SerializeField] private EnemySpawner enemySpawner;
 
     [Header("Speed Adjustments")]
     [SerializeField, Tooltip("If lower than this speed, naturally accelerate to it.")]
@@ -178,7 +179,7 @@ public class GameManager : MonoBehaviour
         loopGod.SetFollowSpeed(currentDifficultyLevel.loopGodFollowSpeed);
         lapProgressPaused = newDifficultyLevel.pausesLapProgress;
         trackScroller.SetTrackPrefabs(newDifficultyLevel.trackPrefabs);
-
+        enemySpawner.SetEnemySpawnDataList(newDifficultyLevel.enemySpawnData);
     }
     DifficultyLevel GetDifficultyLevelForLap(int lap)
     {

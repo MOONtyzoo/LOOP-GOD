@@ -490,6 +490,7 @@ MonoBehaviour:
   player: {fileID: 944888211}
   loopGod: {fileID: 441187375}
   trackScroller: {fileID: 800014536}
+  enemySpawner: {fileID: 1595325708}
   naturalRunSpeed: 14
   equilibriumSpeed: 18.5
   terminalSpeed: 50
@@ -17909,9 +17910,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawnPoint: {fileID: 354996395}
-  enemyPrefab: {fileID: 4523618546755074304, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
-  spawnTimeMin: 5
-  spawnTimeMax: 12
 --- !u!1 &1643582572
 GameObject:
   m_ObjectHideFlags: 0

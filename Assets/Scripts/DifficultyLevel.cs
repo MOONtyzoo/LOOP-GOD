@@ -10,13 +10,4 @@ public class DifficultyLevel : ScriptableObject
     [SerializeField] public List<GameObject> trackPrefabs;
     [SerializeField] public List<EnemySpawnData> enemySpawnData;
     [SerializeField] public bool pausesLapProgress = false;
-
-    [Serializable]
-    public struct EnemySpawnData
-    {
-        public GameObject prefab;
-        public float spawnrateMin;
-        public float spawnrateMax;
-        public float attackSpeed;
-    }
 }

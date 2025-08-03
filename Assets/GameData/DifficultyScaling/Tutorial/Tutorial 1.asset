@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
   m_Name: Tutorial 1
   m_EditorClassIdentifier: 
-  lapLength: 100
+  lapLength: 200
   loopGodFollowSpeed: 0
   trackPrefabs:
-  - {fileID: 7439096927567806482, guid: ebd3032e3b15c394f90bd12c3269026b, type: 3}
-  enemySpawnData: []
-  pausesLapProgress: 1
+  - {fileID: 7439096927567806482, guid: 99760b0338f656c4c982fb88e4a85f97, type: 3}
+  enemySpawnData:
+  - prefab: {fileID: 7741341188366508056, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
+    spawnrateMin: 2
+    spawnrateMax: 5
+    maxEnemies: 3
+    attackSpeed: 1
+  pausesLapProgress: 0
