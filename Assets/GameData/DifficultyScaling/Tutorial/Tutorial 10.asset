@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial 10
   m_EditorClassIdentifier: 
   dialogueToPlay: {fileID: 11400000, guid: 4eb391888fc360a438837de7c57ab32e, type: 2}
-  lapLength: 400
+  lapLength: 750
   loopGodFollowSpeed: 0
   pausesLapProgress: 0
   trackPrefabs:

@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
   m_Name: Difficulty 8
   m_EditorClassIdentifier: 
+  dialogueToPlay: {fileID: 0}
   lapLength: 200
-  loopGodFollowSpeed: 10
-  trackPrefabs: []
-  enemySpawnData: []
+  loopGodFollowSpeed: 24
+  pausesLapProgress: 0
+  trackPrefabs:
+  - {fileID: 7439096927567806482, guid: 9b9165005fa2061439c6eb443c245c43, type: 3}
+  enemySpawnData:
+  - prefab: {fileID: 7741341188366508056, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
+    spawnrateMin: 2.5
+    spawnrateMax: 5
+    maxEnemies: 3
+    attackSpeed: 1

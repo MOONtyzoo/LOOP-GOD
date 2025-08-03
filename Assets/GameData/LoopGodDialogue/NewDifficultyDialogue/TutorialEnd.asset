@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TutorialEnd
   m_EditorClassIdentifier: 
   lines:
-  - text: "<mystic>The lessons end, the trial is whole \u2014\nshow me the fire within
-      your soul.</mystic>"
+  - text: "<mystic>Ten laps are done, </><angered><color=#FF284D>and now I hunger</color>\n\u2014
+      I hunt the weak, I tear asunder.</>\r\n\r\n"
+  - text: "<angered>Fall behind, and you shall die \u2014\nthe loop shows mercy to
+      no eye.</angered>\n"
