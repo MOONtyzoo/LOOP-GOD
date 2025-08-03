@@ -9,6 +9,7 @@ public class DifficultyLevel : ScriptableObject
     [SerializeField] public float loopGodFollowSpeed;
     [SerializeField] public List<GameObject> trackPrefabs;
     [SerializeField] public List<EnemySpawnData> enemySpawnData;
+    [SerializeField] public bool pausesLapProgress = false;
 
     [Serializable]
     public struct EnemySpawnData

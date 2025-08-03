@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private LoopGod loopGod;
+    [SerializeField] private TrackScroller trackScroller;
 
     [Header("Speed Adjustments")]
     [SerializeField, Tooltip("If lower than this speed, naturally accelerate to it.")]
@@ -44,8 +45,16 @@ public class GameManager : MonoBehaviour
     private float hitReductionMultiplier;
 
     [Header("Difficulty Scaling")]
-    [SerializeField] private DifficultyLevel[] difficultyLevels = new DifficultyLevel[10];
+    [SerializeField] private List<DifficultyRange> difficultyRanges = new List<DifficultyRange>();
     private DifficultyLevel currentDifficultyLevel;
+
+    [Serializable]
+    private struct DifficultyRange
+    {
+        public int lapRangeMin;
+        public int lapRangeMax; 
+        public DifficultyLevel difficultyLevel;
+    }
 
     private float distance = 0.0f;
     private float lapProgress = 0.0f;
@@ -53,6 +62,7 @@ public class GameManager : MonoBehaviour
     private int currentLap;
     private bool isRunAccelerationStunned = false;
     private bool isEquilibriumDecayStunned = false;
+    private bool lapProgressPaused = false;
 
     private void Awake()
     {
@@ -91,7 +101,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateSpeed();
-        SetLapProgress(lapProgress + Time.deltaTime * speed / GetLapLength());
+        if (!lapProgressPaused)
+        {
+            SetLapProgress(lapProgress + Time.deltaTime * speed / GetLapLength());
+        }
         distance += Time.deltaTime * speed;
     }
 
@@ -163,11 +176,22 @@ public class GameManager : MonoBehaviour
     {
         currentDifficultyLevel = newDifficultyLevel;
         loopGod.SetFollowSpeed(currentDifficultyLevel.loopGodFollowSpeed);
+        lapProgressPaused = newDifficultyLevel.pausesLapProgress;
+        trackScroller.SetTrackPrefabs(newDifficultyLevel.trackPrefabs);
+
     }
     DifficultyLevel GetDifficultyLevelForLap(int lap)
     {
-        int index = Mathf.Clamp((lap - 1) / 10, 0, difficultyLevels.Length);
-        return difficultyLevels[index];
+        foreach (DifficultyRange difficultyRange in difficultyRanges)
+        {
+            if (lap >= difficultyRange.lapRangeMin && lap <= difficultyRange.lapRangeMax)
+            {
+                return difficultyRange.difficultyLevel;
+            }
+        }
+
+        Debug.LogError("Could not map a lap "+ lap.ToString() + " to a difficulty level!");
+        return null;
     }
 
     public void EnemyKilled(float speedGain)

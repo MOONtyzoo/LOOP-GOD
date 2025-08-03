@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TrackScroller : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> trackPrefabs;
     [SerializeField] private GameObject emptyTrackPrefab;
     [SerializeField] private float trackWidth;
     [SerializeField] private float trackSpawnPosY = 0.0f;
@@ -12,6 +11,8 @@ public class TrackScroller : MonoBehaviour
     [SerializeField, Tooltip("The X localPosition at which a track object will be destroyed and cause a new track object to be created at the front.")]
     private float trackThresholdX;
     [SerializeField] private float initialTrackOffset;
+
+    private List<GameObject> trackPrefabs;
 
     private GameObject leftTrack;
     private GameObject rightTrack;
@@ -60,6 +61,7 @@ public class TrackScroller : MonoBehaviour
 
     private GameObject SpawnRandomTrack()
     {
+        if (trackPrefabs == null || trackPrefabs.Count == 0) return SpawnTrack(emptyTrackPrefab);
         GameObject randomTrackPrefab = trackPrefabs[Random.Range(0, trackPrefabs.Count)];
         return SpawnTrack(randomTrackPrefab);
     }
@@ -70,4 +72,6 @@ public class TrackScroller : MonoBehaviour
         newTrack.transform.localPosition = new Vector2(newTrack.transform.localPosition.x, trackSpawnPosY);
         return newTrack;
     }
+
+    public void SetTrackPrefabs(List<GameObject> newTrackPrefabs) => trackPrefabs = newTrackPrefabs;
 }

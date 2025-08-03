@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 944888211}
   loopGod: {fileID: 441187375}
+  trackScroller: {fileID: 800014536}
   naturalRunSpeed: 14
   equilibriumSpeed: 18.5
   terminalSpeed: 50
@@ -499,17 +500,73 @@ MonoBehaviour:
   equilibriumDecayStunDuration: 0.5
   hitReductionMin: 6
   hitReductionMultiplier: 0.09
-  difficultyLevels:
-  - {fileID: 11400000, guid: 84f714bf6c95c3d4c8c7f6ed9477c764, type: 2}
-  - {fileID: 11400000, guid: 0b6ead1a5c32d1147b21047ccde91ee5, type: 2}
-  - {fileID: 11400000, guid: 2e63bec99b576c440987dddccdbfa061, type: 2}
-  - {fileID: 11400000, guid: 10f8ce2597f0b68468b7f850d985f82b, type: 2}
-  - {fileID: 11400000, guid: 7b0132a862f22d540aa926e5d5d8967e, type: 2}
-  - {fileID: 11400000, guid: 663a4fcf5f9023d4c88edde4f7b628d3, type: 2}
-  - {fileID: 11400000, guid: 2d5ad8b1613138e4a8b2016fdfd1fd35, type: 2}
-  - {fileID: 11400000, guid: 084919ac618355644bc9fd576265800a, type: 2}
-  - {fileID: 11400000, guid: 9fc84568dc62c2e44be6329afd03434e, type: 2}
-  - {fileID: 11400000, guid: 918efbd18dbcb5541900be12d559e8e7, type: 2}
+  difficultyRanges:
+  - lapRangeMin: 1
+    lapRangeMax: 1
+    difficultyLevel: {fileID: 11400000, guid: 84f714bf6c95c3d4c8c7f6ed9477c764, type: 2}
+  - lapRangeMin: 2
+    lapRangeMax: 2
+    difficultyLevel: {fileID: 11400000, guid: 1fed3fb8ab32d2c438ef6673e8228807, type: 2}
+  - lapRangeMin: 3
+    lapRangeMax: 3
+    difficultyLevel: {fileID: 11400000, guid: 81467dc2485a5a74484ece66a7095ad6, type: 2}
+  - lapRangeMin: 4
+    lapRangeMax: 4
+    difficultyLevel: {fileID: 11400000, guid: 057020d62870d04468a4deaf2a028456, type: 2}
+  - lapRangeMin: 5
+    lapRangeMax: 5
+    difficultyLevel: {fileID: 11400000, guid: 62bf307222855c3428f9bd10975ad45f, type: 2}
+  - lapRangeMin: 6
+    lapRangeMax: 6
+    difficultyLevel: {fileID: 11400000, guid: 657fceb420494d345b2958b94476ae24, type: 2}
+  - lapRangeMin: 7
+    lapRangeMax: 7
+    difficultyLevel: {fileID: 11400000, guid: 435ca94c74cbff74eba11323b34cc294, type: 2}
+  - lapRangeMin: 8
+    lapRangeMax: 8
+    difficultyLevel: {fileID: 11400000, guid: 5c3bd566ff68478469d4ee85511f0624, type: 2}
+  - lapRangeMin: 9
+    lapRangeMax: 9
+    difficultyLevel: {fileID: 11400000, guid: f2b9ac54cc402834a91b813f21037ec4, type: 2}
+  - lapRangeMin: 10
+    lapRangeMax: 10
+    difficultyLevel: {fileID: 11400000, guid: ef2ff70c625360c4eb20081226588511, type: 2}
+  - lapRangeMin: 11
+    lapRangeMax: 20
+    difficultyLevel: {fileID: 11400000, guid: 0b6ead1a5c32d1147b21047ccde91ee5, type: 2}
+  - lapRangeMin: 21
+    lapRangeMax: 30
+    difficultyLevel: {fileID: 11400000, guid: 2e63bec99b576c440987dddccdbfa061, type: 2}
+  - lapRangeMin: 31
+    lapRangeMax: 40
+    difficultyLevel: {fileID: 11400000, guid: 10f8ce2597f0b68468b7f850d985f82b, type: 2}
+  - lapRangeMin: 41
+    lapRangeMax: 50
+    difficultyLevel: {fileID: 11400000, guid: 7b0132a862f22d540aa926e5d5d8967e, type: 2}
+  - lapRangeMin: 51
+    lapRangeMax: 60
+    difficultyLevel: {fileID: 11400000, guid: 663a4fcf5f9023d4c88edde4f7b628d3, type: 2}
+  - lapRangeMin: 51
+    lapRangeMax: 60
+    difficultyLevel: {fileID: 11400000, guid: 663a4fcf5f9023d4c88edde4f7b628d3, type: 2}
+  - lapRangeMin: 61
+    lapRangeMax: 70
+    difficultyLevel: {fileID: 11400000, guid: 2d5ad8b1613138e4a8b2016fdfd1fd35, type: 2}
+  - lapRangeMin: 61
+    lapRangeMax: 70
+    difficultyLevel: {fileID: 11400000, guid: 2d5ad8b1613138e4a8b2016fdfd1fd35, type: 2}
+  - lapRangeMin: 71
+    lapRangeMax: 80
+    difficultyLevel: {fileID: 11400000, guid: 084919ac618355644bc9fd576265800a, type: 2}
+  - lapRangeMin: 71
+    lapRangeMax: 80
+    difficultyLevel: {fileID: 11400000, guid: 084919ac618355644bc9fd576265800a, type: 2}
+  - lapRangeMin: 81
+    lapRangeMax: 90
+    difficultyLevel: {fileID: 11400000, guid: 9fc84568dc62c2e44be6329afd03434e, type: 2}
+  - lapRangeMin: 81
+    lapRangeMax: 90
+    difficultyLevel: {fileID: 11400000, guid: 9fc84568dc62c2e44be6329afd03434e, type: 2}
 --- !u!4 &197006280
 Transform:
   m_ObjectHideFlags: 0
@@ -11304,11 +11361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b7d89573da7ce429b7578e3d8bae88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackPrefabs:
-  - {fileID: 7439096927567806482, guid: 99760b0338f656c4c982fb88e4a85f97, type: 3}
-  - {fileID: 7439096927567806482, guid: e34801527ab43e0419f5bfbada77733d, type: 3}
-  - {fileID: 7439096927567806482, guid: e34801527ab43e0419f5bfbada77733d, type: 3}
-  - {fileID: 7439096927567806482, guid: e34801527ab43e0419f5bfbada77733d, type: 3}
   emptyTrackPrefab: {fileID: 7439096927567806482, guid: 99760b0338f656c4c982fb88e4a85f97, type: 3}
   trackWidth: 100
   trackSpawnPosY: 0
@@ -11708,8 +11760,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b7d89573da7ce429b7578e3d8bae88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackPrefabs:
-  - {fileID: 4669630636152872559, guid: 1bf92b379bb3a964d9a29d58c2c7b362, type: 3}
   emptyTrackPrefab: {fileID: 4669630636152872559, guid: 1bf92b379bb3a964d9a29d58c2c7b362, type: 3}
   trackWidth: 100
   trackSpawnPosY: -5.44
@@ -12203,7 +12253,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 3c9bad259aa9c9c45b9b4de791d0506b, type: 3}
   m_Resource: {fileID: 8300000, guid: 3c9bad259aa9c9c45b9b4de791d0506b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
