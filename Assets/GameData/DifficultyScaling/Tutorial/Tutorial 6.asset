@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
   m_Name: Tutorial 6
   m_EditorClassIdentifier: 
+  dialogueToPlay: {fileID: 11400000, guid: aa770757f8a9d9e4e9a6e7d74c997fd4, type: 2}
   lapLength: 200
   loopGodFollowSpeed: 0
-  trackPrefabs: []
-  enemySpawnData: []
   pausesLapProgress: 0
+  trackPrefabs:
+  - {fileID: 7439096927567806482, guid: 316dde4220d3874458ee6f6a99624e66, type: 3}
+  enemySpawnData: []

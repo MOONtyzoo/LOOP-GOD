@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ae22fa9be3dc04e98fb4267726891a, type: 3}
+  m_Name: Tutorial Lap 8
+  m_EditorClassIdentifier: 
+  lines:
+  - text: "<mystic>From ash and sky, the mage takes form \u2014\na mind of sparks,
+      a heart of storm.</mystic>"
+  - text: "<mystic>His bolts strike down from skies above \u2014\nshoot him once,
+      then twice, enough.</mystic>"

@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
   m_Name: Tutorial 8
   m_EditorClassIdentifier: 
+  dialogueToPlay: {fileID: 11400000, guid: 9e9113531f3c0374486404c96a6d80ee, type: 2}
   lapLength: 200
   loopGodFollowSpeed: 0
-  trackPrefabs: []
-  enemySpawnData: []
   pausesLapProgress: 0
+  trackPrefabs: []
+  enemySpawnData:
+  - prefab: {fileID: 7741341188366508056, guid: 722b9b2b109a84f4299483afaf42093c, type: 3}
+    spawnrateMin: 2
+    spawnrateMax: 2
+    maxEnemies: 1
+    attackSpeed: 1

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf7144b7851de9e4a85eadc9db445ac7, type: 3}
   m_Name: Difficulty 9
   m_EditorClassIdentifier: 
+  dialogueToPlay: {fileID: 0}
   lapLength: 200
   loopGodFollowSpeed: 10
+  pausesLapProgress: 0
   trackPrefabs: []
   enemySpawnData: []

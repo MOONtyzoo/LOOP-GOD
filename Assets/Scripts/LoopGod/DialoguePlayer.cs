@@ -28,10 +28,6 @@ public class DialoguePlayer : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         typewriter.onTextShowed.AddListener(() => typewriterShowCompleted = true);
-    }
-
-    public void Start()
-    {
         Hide();
     }
 

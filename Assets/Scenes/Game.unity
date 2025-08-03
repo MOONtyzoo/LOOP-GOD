@@ -491,6 +491,7 @@ MonoBehaviour:
   loopGod: {fileID: 441187375}
   trackScroller: {fileID: 800014536}
   enemySpawner: {fileID: 1595325708}
+  dialoguePlayer: {fileID: 1914283795}
   naturalRunSpeed: 14
   equilibriumSpeed: 18.5
   terminalSpeed: 50
@@ -18340,6 +18341,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5912117460422648863, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
   m_PrefabInstance: {fileID: 1060470362996286890}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1914283795 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5660983561915508755, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
+  m_PrefabInstance: {fileID: 1060470362996286890}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1849f2e82729cd4dbc47bf712bcde40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2045294144
 GameObject:
   m_ObjectHideFlags: 0
@@ -18627,6 +18639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialoguePlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5660983561915508755, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
+      propertyPath: timeBetweenLines
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5912117460422648863, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18706,6 +18722,10 @@ PrefabInstance:
     - target: {fileID: 5912117460422648863, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7687044778431927760, guid: 24905e321b9bdd445b4317229d56d46c, type: 3}
+      propertyPath: avoidMultiplePunctuationWait
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

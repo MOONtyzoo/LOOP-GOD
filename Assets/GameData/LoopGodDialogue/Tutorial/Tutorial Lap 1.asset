@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ae22fa9be3dc04e98fb4267726891a, type: 3}
+  m_Name: Tutorial Lap 1
+  m_EditorClassIdentifier: 
+  lines:
+  - text: "<mystic>So... a fresh one joins the ring \u2014\na soul unscarred, a fleeting
+      thing.</mystic>\r\r\n"
+  - text: "<mystic>You seek to slay the LOOP GOD\u2019s name? \u2014\nThen run the
+      laps and play my game.</mystic>\r\n"
+  - text: "<mystic>Only once shall I explain the rules \u2014\nso pay attention or
+      play the fool.</mystic>\r"
+  - text: "<mystic>Your speed is vital \u2014\nslow and you\u2019ll fall.</mystic>"
+  - text: "<mystic>Keep a quick pace \u2014\nor lose it all.</mystic>"

@@ -27,10 +27,6 @@ public class EnemySpawner : MonoBehaviour
                 {
                     SpawnEnemy(enemySpawnData.prefab);
                 }
-                else
-                {
-                    Debug.Log("Enemy failed to spawn due to hitting max enemy limit");
-                }
             }
         }
     }
