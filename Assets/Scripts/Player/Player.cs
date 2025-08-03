@@ -6,10 +6,11 @@ public class Player : MonoBehaviour
 {
     public event Action OnHit;
 
+    [Header("References")]
     private TrackBody trackBody;
-    private HeightVisual heightVisual;
-    private Hitbox hitbox;
-    private PlayerGun gun;
+    [SerializeField] private HeightVisual heightVisual;
+    [SerializeField] private Hitbox hitbox;
+    [SerializeField] private PlayerGun gun;
 
     [Header("Jump")]
     [SerializeField] private float jumpHoldTime;
@@ -34,14 +35,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        trackBody = GetComponentInChildren<TrackBody>();
-        heightVisual = GetComponentInChildren<HeightVisual>();
-        hitbox = GetComponentInChildren<Hitbox>();
-        gun = GetComponentInChildren<PlayerGun>();
-        swordHurtbox.Disable();
-
-        trackBody.SetTrack(2);
-        gun.SetAmmo(3);
+        trackBody = GetComponent<TrackBody>();
 
         MoveUpButton = new InputButton("MoveUp", 0.5f * trackBody.GetTrackSwitchDuration());
         MoveDownButton = new InputButton("MoveDown", 0.5f * trackBody.GetTrackSwitchDuration());
@@ -51,6 +45,13 @@ public class Player : MonoBehaviour
 
         swordHurtbox.OnHit += SwordHurtbox_OnHit;
         hitbox.OnHit += Hitbox_OnHit;
+    }
+
+    private void Start()
+    {
+        trackBody.SetTrack(2);
+        gun.SetAmmo(3);
+        swordHurtbox.Disable();
     }
 
     private void Update()

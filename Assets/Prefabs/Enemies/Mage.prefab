@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28428926db9c49041b28bf8af70bb705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rbody: {fileID: 3889710157259144426}
   forwardSpeedMax: 3
   backwardSpeedMax: 3
   acceleration: 5

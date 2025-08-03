@@ -84,7 +84,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SetLap(1);
+        if (PlayerPrefs.GetInt("SkipTutorial?") == 1)
+        {
+            SetLap(11);
+        }
+        else
+        {
+            SetLap(1);
+        }
     }
 
     private void Player_OnHit()

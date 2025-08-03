@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float zoomFactor;
     [SerializeField] private float zoomOffsetFactorX;
 
-    private new Camera camera;
+    private Camera cameraComponent;
 
     private float currentTilt = 0f;
     private float currentZoom;
@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        camera = GetComponent<Camera>();
+        cameraComponent = GetComponent<Camera>();
 
         currentZoom = zoomDefault;
         currentOffsetX = zoomDefaultOffsetX;
@@ -62,7 +62,7 @@ public class CameraFollow : MonoBehaviour
         float targetZoom = zoomDefault + zoomLerpVal * zoomFactor;
         float newZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * tiltSmoothSpeed);
         currentZoom = newZoom;
-        camera.orthographicSize = currentZoom;
+        cameraComponent.orthographicSize = currentZoom;
 
         float targetX = zoomDefaultOffsetX + zoomLerpVal * zoomOffsetFactorX;
         float newOffsetX = Mathf.Lerp(currentOffsetX, targetX, Time.deltaTime * tiltSmoothSpeed);

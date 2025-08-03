@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TrackBody : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D rbody;
+    
     [Header("Horizontal Movement")]
     [SerializeField] private float forwardSpeedMax;
     [SerializeField] private float backwardSpeedMax;
@@ -22,12 +24,6 @@ public class TrackBody : MonoBehaviour
     private bool isChangingTracks = false;
     private int trackIdx = 2;
 
-    private Rigidbody2D rbody;
-
-    private void Awake()
-    {
-        rbody = GetComponentInParent<Rigidbody2D>();
-    }
 
     public void MoveToRandomTrack() => MoveToTrack(Random.Range(TRACK_IDX_TOP, TRACK_IDX_BOTTOM + 1));
     public void MoveToAdjacentTrack()

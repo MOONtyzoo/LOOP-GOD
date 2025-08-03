@@ -20,14 +20,14 @@ public class Hurtbox : MonoBehaviour
     [SerializeField] private bool disableOnHit = false;
 
     private SpriteRenderer spriteRenderer;
-    private new Collider2D collider;
+    private Collider2D boxCollider;
 
     private Coroutine flashCoroutine;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<Collider2D>();
+        boxCollider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -61,7 +61,7 @@ public class Hurtbox : MonoBehaviour
         contactFilter.NoFilter();
         contactFilter.SetLayerMask(hitboxLayerMask);
 
-        collider.Overlap(contactFilter, results);
+        boxCollider.Overlap(contactFilter, results);
 
         foreach (Collider2D result in results)
         {
@@ -90,16 +90,16 @@ public class Hurtbox : MonoBehaviour
         if (disableOnHit) Disable();
     }
 
-    public bool IsEnabled() => collider.enabled;
+    public bool IsEnabled() => boxCollider.enabled;
     public void Enable()
     {
-        collider.enabled = true;
+        boxCollider.enabled = true;
         spriteRenderer.color = defaultColor;
     }
 
     public void Disable()
     {
-        collider.enabled = false;
+        boxCollider.enabled = false;
     }
 
     private IEnumerator FlashCoroutine()

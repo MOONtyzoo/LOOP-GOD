@@ -20,7 +20,7 @@ public class Hitbox : MonoBehaviour
     [SerializeField] private float immunityDuration = 0f;
 
     private SpriteRenderer spriteRenderer;
-    private new Collider2D collider;
+    private Collider2D boxCollider;
 
     private Coroutine flashCoroutine;
 
@@ -29,7 +29,7 @@ public class Hitbox : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<Collider2D>();
+        boxCollider = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -61,16 +61,16 @@ public class Hitbox : MonoBehaviour
         OnHit?.Invoke();
     }
 
-    public bool IsEnabled() => collider.enabled;
+    public bool IsEnabled() => boxCollider.enabled;
     public void Enable()
     {
-        collider.enabled = true;
+        boxCollider.enabled = true;
         spriteRenderer.color = defaultColor;
     }
 
     public void Disable()
     {
-        collider.enabled = false;
+        boxCollider.enabled = false;
         spriteRenderer.color = disabledColor;
     }
 
